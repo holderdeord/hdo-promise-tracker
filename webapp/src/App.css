@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+header h1 {
+  font-size: 2rem;
+  padding-top: 2rem;
+  font-weight: 300;
+}
+@media (max-width: 385px) {
+  header h1 {
+    padding-top: 0;
+    font-size: 1.5rem;
+  }
+}
+header .sharing-links {
+  padding-top: 2.5rem;
+  color: #455068;
+}
+header .sharing-links span {
+  padding-left: 1rem;
+}
+@media screen and (max-width: 48em) {
+  header .sharing-links {
+    text-align: center;
+  }
+}
+header a {
+  text-decoration: none;
+}
+
+.hdo-logo {
+  white-space: nowrap;
+  margin-top: 1rem;
+  padding-top: 3rem;
+  text-align: left;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto 2.5rem;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+}
+@media screen and (max-width: 48em) {
+  .hdo-logo {
+    text-align: center;
+    background-position: 50% 0;
+  }
+}
+
+footer {
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  display: block;
+  position: relative;
+  margin: 4rem 0;
+  text-align: center;
+  opacity: 0.8;
+}
+footer .links {
+  padding-top: 1rem;
+}
+footer .links a {
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+html ::selection {
+  background-color: #fadd00;
+}
+
+.other-services a {
+  text-decoration: none;
+}
+.other-services .service {
+  filter: grayscale(0.4);
+  transition: all 0.3s ease;
+}
+.other-services .service .img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  background-position: 50% 50%;
+}
+.other-services .service:hover {
+  filter: none;
+  background-color: #e5e7ec;
+}
+
+.hdo-card {
+  background-color: #fff;
+  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  margin-top: 2rem;
+}
+.hdo-card .hdo-card-header {
+  background-color: #fcfcfc;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.12);
+}
+.hdo-card .hdo-card-header.top-border {
+  border-top: 1px solid #ddd;
+}
+.hdo-card .hdo-card-header.bottom-border {
+  border-bottom: 1px solid #ddd;
+}
