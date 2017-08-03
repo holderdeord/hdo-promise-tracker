@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const elasticsearch = require('elasticsearch');
 const fetch = require('node-fetch');
 const log = require('debug')('hdo-promise-tracker:indexer');
+const fs = require('fs');
 
 const INDEX = 'hdo-promise-tracker-2017';
 
@@ -40,18 +41,25 @@ function indexPromise(doc) {
 function convertRawToDoc(raw) {
     log('raw', raw);
 
-    return {
-        id: raw.ID,
-        text: raw.LØFTE,
-        categories: (raw.Kategori || '').split(';').map(e => e.trim()).filter(e => e.length),
-        ministry: (raw['Ansvarlig dep.'] || 'Ukjent').trim(),
-        status: raw['Holdt?'] ? statusFor(raw['Holdt?']) : 'unset',
-        completed: (raw['Ferdigsjekka?'] || '').toLowerCase() === 'ja',
-        explanation: (raw['Kommentar/Forklaring'] || '').trim(),
-        checker: (raw['Hvem sjekker?'] || 'Ukjent').trim(),
-        uncheckable: (raw['Kan ikke etterprøves'] || '').toLowerCase() === 'ja',
-        propositions: raw['Relevante forslag']
-    };
+    try {
+        const uncheckable = (raw['Kan ikke etterprøves'] || '').toLowerCase() === 'ja';
+
+        return {
+            id: raw.ID,
+            text: raw.LØFTE,
+            categories: (raw.Kategori || '').split(';').map(e => e.trim()).filter(e => e.length),
+            ministry: (raw['Ansvarlig dep.'] || 'Ukjent').trim(),
+            status: uncheckable ? 'Kan ikke etterprøves' : statusFor(raw['Holdt?']),
+            completed: raw['Ferdigsjekka?'].toLowerCase() === 'ja',
+            explanation: (raw['Kommentar/Forklaring']).trim(),
+            checker: (raw['Hvem sjekker?'] || 'Ukjent').trim(),
+            uncheckable,
+            propositions: raw['Relevante forslag']
+        };
+    } catch (error) {
+        errors.push({error, raw});
+        return {};
+    }
 }
 
 function statusFor(str) {
@@ -100,14 +108,21 @@ function createIndex() {
 }
 
 const ignoredIDs = [
-    '12931', // to be deleted
     'må ha ny id',
     'null'
 ];
 
+const errors = [];
+
 createIndex()
     .then(fetchRaw)
     .then(doc => doc.data.promises)
-    .filter(raw => !ignoredIDs.includes((raw.ID || 'null').toLowerCase()))
+    .filter(raw => raw.Slettes !== 'Ja' && !ignoredIDs.includes((raw.ID || 'null').toLowerCase()))
     .map(promise => indexPromise(convertRawToDoc(promise)), {concurrency: 3})
+    .then(() => {
+        if (errors.length) {
+            log('found errors, check errors.json');
+            fs.writeFileSync('errors.json', JSON.stringify(errors))
+        }
+    })
     .then(() => console.log('done'));
