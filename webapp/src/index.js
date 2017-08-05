@@ -21,10 +21,10 @@ ReactHighcharts.Highcharts.setOptions({
        },
 
        colors: [
-           '#b8bfcc',
+           'rgb(0, 166, 212)',
            '#fadd00',
            'rgb(43, 43, 43)',
-           'rgb(0, 166, 212)',
+           '#b8bfcc',
            '#d00',
            '#FA0',
            '#006800',

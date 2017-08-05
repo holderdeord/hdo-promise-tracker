@@ -23,3 +23,9 @@ export const customHighlight = {
     }
 };
 
+export const statusColors = {
+    kept: 'rgb(0, 166, 212)',
+    'partially-kept': '#fadd00',
+    broken: 'rgb(43, 43, 43)',
+    uncheckable: '#b8bfcc'
+}

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
 import Intro from './Intro';
-import StatusTotals from './StatusTotals';
-import StatusByMinistry from './StatusByMinistry';
 import PromiseList from './PromiseList';
 import SearchApi from './SearchApi';
+import StatusCharts from './StatusCharts';
 
 export default class Main extends Component {
     api = new SearchApi();
 
     state = {
-        stats: { totals: null, ministries: null }
+        stats: { totals: null, ministries: null, totalCount: null }
     }
 
     componentDidMount() {
@@ -22,10 +21,8 @@ export default class Main extends Component {
 
         return (
             <div>
-                <Intro />
-                <StatusTotals data={stats.totals} />
-                <StatusByMinistry data={stats.ministries} />
-
+                <Intro count={stats.totalCount} />
+                <StatusCharts stats={stats} />
                 <PromiseList />
             </div>
         );

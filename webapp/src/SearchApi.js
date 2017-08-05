@@ -32,12 +32,12 @@ export default class SearchApi {
             const totals = {};
             const ministries = [];
 
-            console.log(res);
+            const totalCount = res.hits.total;
 
             res.aggregations.allStatuses.buckets.forEach(bucket => {
                 totals[bucket.key] = {
                     count: bucket.doc_count,
-                    percentage: bucket.doc_count * 100 / res.hits.total
+                    percentage: bucket.doc_count * 100 / totalCount
                 }
             });
 
@@ -56,7 +56,7 @@ export default class SearchApi {
                 })
             });
 
-            return { ministries, totals };
+            return { ministries, totals, totalCount };
         });
     }
 
