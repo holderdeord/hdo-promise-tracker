@@ -34,30 +34,55 @@ function indexPromise(doc) {
     return es.index({
         index: INDEX,
         type: 'promise',
+        id: doc.id,
         body: doc
     });
 }
+
+const ids = new Set();
 
 function convertRawToDoc(raw) {
     log('raw', raw);
 
     try {
-        const uncheckable = (raw['Kan ikke etterprøves'] || '').toLowerCase() === 'ja';
+        const uncheckable =
+            (raw['Kan ikke etterprøves'] || '').toLowerCase() === 'ja';
 
-        return {
+        const doc = {
             id: raw.ID,
             text: raw.LØFTE,
-            categories: (raw.Kategori || '').split(';').map(e => e.trim()).filter(e => e.length),
+            categories: (raw.Kategori || '')
+                .split(';')
+                .map(e => e.trim())
+                .filter(e => e.length),
             ministry: (raw['Ansvarlig dep.'] || 'Ukjent').trim(),
-            status: uncheckable ? 'Kan ikke etterprøves' : statusFor(raw['Holdt?']),
+            status: uncheckable ? 'uncheckable' : statusFor(raw['Holdt?']),
             completed: raw['Ferdigsjekka?'].toLowerCase() === 'ja',
-            explanation: (raw['Kommentar/Forklaring']).trim(),
+            explanation: raw['Kommentar/Forklaring'].trim(),
             checker: (raw['Hvem sjekker?'] || 'Ukjent').trim(),
             uncheckable,
-            propositions: raw['Relevante forslag']
+            propositions: (raw['Relevante forslag'] || '')
+                .split(/\s/)
+                .map(e => e.trim())
+                .filter(e => e.length)
         };
+
+        if (doc.id === null) {
+            throw new Error(`missing id: ${doc.id}`);
+        }
+
+        if (ids.has(doc.id)) {
+            throw new Error(`duplicate id: ${doc.id}`);
+        }
+
+        ids.add(doc.id);
+
+        return doc;
     } catch (error) {
-        errors.push({error, raw});
+        errors.push({
+            error: error.toString(),
+            raw: Object.assign(raw, { lofte: raw.LØFTE })
+        });
         return {};
     }
 }
@@ -73,7 +98,7 @@ function statusFor(str) {
         case 'ikke enda':
             return 'not-yet';
         default:
-            throw new Error(`unknown status: ${JSON.stringify(str)}`)
+            throw new Error(`unknown status: ${JSON.stringify(str)}`);
     }
 }
 
@@ -92,13 +117,29 @@ function createIndex() {
                             properties: {
                                 id: { type: 'string', index: 'not_analyzed' },
                                 text: { type: 'string' },
-                                categories: { type: 'string', index: 'not_analyzed' },
-                                ministry: { type: 'string', index: 'not_analyzed' },
-                                status: { type: 'string', index: 'not_analyzed' },
+                                categories: {
+                                    type: 'string',
+                                    index: 'not_analyzed'
+                                },
+                                ministry: {
+                                    type: 'string',
+                                    index: 'not_analyzed'
+                                },
+                                status: {
+                                    type: 'string',
+                                    index: 'not_analyzed'
+                                },
                                 completed: { type: 'boolean' },
                                 explanation: { type: 'string' },
-                                checker: { type: 'string', index: 'not_analyzed' },
+                                checker: {
+                                    type: 'string',
+                                    index: 'not_analyzed'
+                                },
                                 uncheckable: { type: 'boolean' },
+                                propositions: {
+                                    type: 'string',
+                                    index: 'not_analyzed'
+                                }
                             }
                         }
                     }
@@ -107,22 +148,17 @@ function createIndex() {
         });
 }
 
-const ignoredIDs = [
-    'må ha ny id',
-    'null'
-];
-
 const errors = [];
 
 createIndex()
     .then(fetchRaw)
     .then(doc => doc.data.promises)
-    .filter(raw => raw.Slettes !== 'Ja' && !ignoredIDs.includes((raw.ID || 'null').toLowerCase()))
-    .map(promise => indexPromise(convertRawToDoc(promise)), {concurrency: 3})
+    .filter(raw => raw.Slettes !== 'Ja')
+    .map(promise => indexPromise(convertRawToDoc(promise)), { concurrency: 3 })
     .then(() => {
         if (errors.length) {
             log('found errors, check errors.json');
-            fs.writeFileSync('errors.json', JSON.stringify(errors))
+            fs.writeFileSync('errors.json', JSON.stringify(errors));
         }
     })
     .then(() => console.log('done'));

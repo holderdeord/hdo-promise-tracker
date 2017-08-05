@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "reindex": "DEBUG=hdo-promise-tracker:* node index.js"
+        "reindex": "DEBUG=hdo-promise-tracker:* node index.js",
+        "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/indexer && git pull --ff-only && npm install && npm run reindex'"
     },
     "keywords": [],
     "author": "",
