@@ -1,5 +1,9 @@
 import React from 'react';
 
+import Piechart from './Piechart';
+import Barchart from './Barchart';
+import PromiseList from './PromiseList';
+
 export default () =>
     <div>
         <div className="row">
@@ -8,9 +12,10 @@ export default () =>
             </div>
         </div>
 
-        <div className="row">
-            <div className="col-md-4">Test</div>
-            <div className="col-md-4">Test</div>
-            <div className="col-md-4">Test</div>
-        </div>
+        <Piechart />
+        <Barchart />
+        <PromiseList />
+        
     </div>;
+
+

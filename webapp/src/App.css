@@ -109,3 +109,49 @@ html ::selection {
 .hdo-card .hdo-card-header.bottom-border {
   border-bottom: 1px solid #ddd;
 }
+
+.mTop {
+  margin-top: 5rem;
+}
+
+.mBottom {
+  margin-bottom: 5rem;
+}
+
+.mTop0 {
+  margin-top: 0;
+}
+
+.mBottom0 {
+  margin-bottom: 0;
+}
+
+.padded {
+  padding: 2rem;
+}
+
+.hdo-color-dark {
+  background-color: #606b82;
+}
+
+.hdo-color-light {
+  background-color: #b8bfcc;
+}
+
+.flexContainer {
+  display: flex;
+}
+.flexCentered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexStart {
+  align-self: flex-start;
+}
+
+.data-highcharts-chart {
+  max-width: 100%;
+}
