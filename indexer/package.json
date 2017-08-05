@@ -1,19 +1,21 @@
 {
-    "name": "indexer",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "reindex": "DEBUG=hdo-promise-tracker:* node index.js",
-        "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/indexer && git pull --ff-only && npm install && npm run reindex'"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "bluebird": "^3.5.0",
-        "debug": "^2.6.8",
-        "elasticsearch": "^13.2.0",
-        "node-fetch": "^1.7.1"
-    }
+  "name": "indexer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "reindex": "DEBUG=hdo-promise-tracker:* node index.js",
+    "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/indexer && git pull --ff-only && npm install && npm run reindex'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "csv": "^1.1.1",
+    "debug": "^2.6.8",
+    "elasticsearch": "^13.2.0",
+    "lodash": "^4.17.4",
+    "node-fetch": "^1.7.1"
+  }
 }
