@@ -60,6 +60,10 @@ function convertRawToDoc(raw) {
             propositions: raw['Relevante forslag']
         };
 
+        if (doc.id === null) {
+            throw new Error(`missing id: ${doc.id}`);
+        }
+
         if (ids.has(doc.id)) {
             throw new Error(`duplicate id: ${doc.id}`);
         }
