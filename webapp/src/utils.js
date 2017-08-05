@@ -29,3 +29,10 @@ export const statusColors = {
     broken: 'rgb(43, 43, 43)',
     uncheckable: '#b8bfcc'
 }
+
+export const statusTitles = {
+    kept: 'Holdt',
+    'partially-kept': 'Delvis holdt',
+    broken: 'Brutt',
+    uncheckable: 'Kan ikke etterprøves'
+};

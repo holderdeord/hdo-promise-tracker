@@ -23,6 +23,7 @@ import {
 import PromiseItem from './PromiseItem';
 
 import { translations, customHighlight } from './utils';
+import 'searchkit/release/theme.css';
 
 const sk = new SearchkitManager(
     'https://search.holderdeord.no/hdo-promise-tracker-2017/'
@@ -31,16 +32,14 @@ const sk = new SearchkitManager(
 sk.translateFunction = key => translations[key];
 
 export default props =>
-    <div className="hdo-card">
+    <div className="hdo-card container">
         <SearchkitProvider searchkit={sk}>
             <Layout>
-                <TopBar>
                     <SearchBox
                         autofocus
                         searchOnChange
-                        prefixQueryFields={['body']}
+                        prefixQueryFields={['text']}
                     />
-                </TopBar>
                 <LayoutBody>
                     <LayoutResults>
                         <ActionBar>
@@ -52,13 +51,13 @@ export default props =>
 
                         <Hits
                             hitsPerPage={30}
-                            highlightFields={['body']}
+                            highlightFields={['text']}
                             customHighlight={customHighlight}
                             itemComponent={PromiseItem}
                             scrollTo={false}
                         />
 
-                        <NoHits suggestionsField="body" />
+                        <NoHits suggestionsField="text" />
 
                         <Pagination
                             showNumbers={true}

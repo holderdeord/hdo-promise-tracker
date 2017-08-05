@@ -134,6 +134,15 @@ html ::selection {
   padding: 2rem;
 }
 
+.promise-item {
+  padding: 2rem;
+}
+
+.promise-item .promise-text {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
 .hdo-color-dark {
   background-color: #606b82;
 }
