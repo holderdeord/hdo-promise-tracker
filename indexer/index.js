@@ -34,9 +34,12 @@ function indexPromise(doc) {
     return es.index({
         index: INDEX,
         type: 'promise',
+        id: doc.id,
         body: doc
     });
 }
+
+const ids = new Set();
 
 function convertRawToDoc(raw) {
     log('raw', raw);
@@ -44,20 +47,28 @@ function convertRawToDoc(raw) {
     try {
         const uncheckable = (raw['Kan ikke etterprøves'] || '').toLowerCase() === 'ja';
 
-        return {
+        const doc = {
             id: raw.ID,
             text: raw.LØFTE,
             categories: (raw.Kategori || '').split(';').map(e => e.trim()).filter(e => e.length),
             ministry: (raw['Ansvarlig dep.'] || 'Ukjent').trim(),
-            status: uncheckable ? 'Kan ikke etterprøves' : statusFor(raw['Holdt?']),
+            status: uncheckable ? 'uncheckable' : statusFor(raw['Holdt?']),
             completed: raw['Ferdigsjekka?'].toLowerCase() === 'ja',
             explanation: (raw['Kommentar/Forklaring']).trim(),
             checker: (raw['Hvem sjekker?'] || 'Ukjent').trim(),
             uncheckable,
             propositions: raw['Relevante forslag']
         };
+
+        if (ids.has(doc.id)) {
+            throw new Error(`duplicate id: ${doc.id}`);
+        }
+
+        ids.add(doc.id);
+
+        return doc;
     } catch (error) {
-        errors.push({error, raw});
+        errors.push({error, raw: Object.assign(raw, {lofte: raw.LØFTE})});
         return {};
     }
 }
@@ -107,17 +118,12 @@ function createIndex() {
         });
 }
 
-const ignoredIDs = [
-    'må ha ny id',
-    'null'
-];
-
 const errors = [];
 
 createIndex()
     .then(fetchRaw)
     .then(doc => doc.data.promises)
-    .filter(raw => raw.Slettes !== 'Ja' && !ignoredIDs.includes((raw.ID || 'null').toLowerCase()))
+    .filter(raw => raw.Slettes !== 'Ja')
     .map(promise => indexPromise(convertRawToDoc(promise)), {concurrency: 3})
     .then(() => {
         if (errors.length) {
