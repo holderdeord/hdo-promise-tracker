@@ -8,7 +8,7 @@ export const translations = {
     "NoHits.DidYouMean": "Søk etter {suggestion}",
     "NoHits.SearchWithoutFilters": "Søk etter {query} uten filtre",
     "NoHits.NoResultsFoundDidYouMean": "Ingen treff for {query}. Mente du «{suggestion}»?",
-    "hitstats.results_found": "{hitCount} løfter funnet etter {timeTaken} ms.",
+    "hitstats.results_found": "Viser {hitCount} løfter.",
     "pagination.previous": "Forrige",
     "pagination.next": "Neste"
 };
@@ -23,6 +23,8 @@ export const customHighlight = {
     }
 };
 
+
+// if you change this, also change promise-status-* classes in App.css
 export const statusColors = {
     kept: 'rgb(0, 166, 212)',
     'partially-kept': '#fadd00',

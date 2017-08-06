@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "font-awesome": "^4.7.0",
     "highcharts": "^5.0.14",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.6.1",

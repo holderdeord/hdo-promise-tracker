@@ -3,11 +3,7 @@ import React from 'react';
 import {
     SearchkitManager,
     SearchkitProvider,
-    Layout,
-    LayoutBody,
-    TopBar,
     SideBar,
-    LayoutResults,
     ActionBar,
     ActionBarRow,
     HitsStats,
@@ -32,42 +28,45 @@ const sk = new SearchkitManager(
 sk.translateFunction = key => translations[key];
 
 export default props =>
-    <div className="hdo-card container">
-        <SearchkitProvider searchkit={sk}>
-            <Layout>
+    <SearchkitProvider searchkit={sk}>
+        <div className="hdo-card container promise-list">
+            <div className="row">
+                <div className="col-md-8">
                     <SearchBox
                         autofocus
                         searchOnChange
                         prefixQueryFields={['text']}
                     />
-                <LayoutBody>
-                    <LayoutResults>
-                        <ActionBar>
-                            <ActionBarRow>
-                                <HitsStats />
-                                <SelectedFilters />
-                            </ActionBarRow>
-                        </ActionBar>
+                </div>
 
-                        <Hits
-                            hitsPerPage={30}
-                            highlightFields={['text']}
-                            customHighlight={customHighlight}
-                            itemComponent={PromiseItem}
-                            scrollTo={false}
-                        />
+                <div className="col-md-4 text-md-right">
+                    <ActionBar>
+                        <ActionBarRow>
+                            <HitsStats />
+                            <SelectedFilters />
+                        </ActionBarRow>
+                    </ActionBar>
+                </div>
+            </div>
 
-                        <NoHits suggestionsField="text" />
+            <div>
+                <Hits
+                    hitsPerPage={30}
+                    highlightFields={['text']}
+                    customHighlight={customHighlight}
+                    itemComponent={PromiseItem}
+                    scrollTo=".promise-list"
+                />
 
-                        <Pagination
-                            showNumbers={true}
-                            pageScope={1}
-                            showFirst={false}
-                            showText={true}
-                        />
-                        <PaginationSelect />
-                    </LayoutResults>
-                </LayoutBody>
-            </Layout>
-        </SearchkitProvider>;
-    </div>
+                <NoHits suggestionsField="text" />
+
+                <Pagination
+                    showNumbers={true}
+                    pageScope={1}
+                    showFirst={false}
+                    showText={true}
+                />
+                <PaginationSelect />
+            </div>
+        </div>
+    </SearchkitProvider>;

@@ -12,7 +12,7 @@ function getMinistryChart(data) {
             type: 'bar',
         },
         title: {
-            text: 'Departement'
+            text: 'Etter departement'
         },
         // subtitle: {
         //     text: 'i prosent'

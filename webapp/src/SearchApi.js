@@ -42,7 +42,6 @@ export default class SearchApi {
             });
 
             res.aggregations.ministries.buckets.forEach(bucket => {
-                const statuses = keyBy(bucket.statuses.buckets, 'key');
                 ministries.push({
                     name: bucket.key,
                     totalCount: bucket.doc_count,

@@ -18,7 +18,7 @@ export default class Header extends Component {
                         <h1>Løftesjekk 2017</h1>
                     </div>
 
-                    <div className="col-md-2 text-xs-right">
+                    <div className="col-md-2 text-xs-right hidden-sm-down">
                         <SharingLinks />
                     </div>
                 </div>

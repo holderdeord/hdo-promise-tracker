@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'font-awesome/css/font-awesome.css';
+import 'babel-polyfill';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';

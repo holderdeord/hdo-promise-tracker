@@ -7,7 +7,7 @@ export default class SharingLinks extends Component {
 
     render() {
         return (
-            <div className="sharing-links hidden-xs-down">
+            <div className="sharing-links">
                 <span>
                     <a href="#" onClick={this.handleFacebookShare.bind(this)}>
                         <i className="fa fa-facebook-square fa-2x" />

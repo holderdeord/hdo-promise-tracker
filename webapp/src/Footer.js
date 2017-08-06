@@ -18,7 +18,7 @@ export default () =>
                 <small>
                     <div>
                         Kildekode på{' '}
-                        <a href="https://github.com/holderdeord/hdo-rebels">
+                        <a href="https://github.com/holderdeord/hdo-promise-tracker">
                             GitHub
                         </a>{' '}
                         lisensiert under{' '}
