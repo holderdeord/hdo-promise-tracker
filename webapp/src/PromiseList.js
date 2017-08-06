@@ -41,7 +41,6 @@ export default class PromiseList extends Component {
                         <div className="row">
                             <div className="col-xs-10">
                                 <SearchBox
-                                    autofocus
                                     searchOnChange
                                     prefixQueryFields={['text']}
                                 />
