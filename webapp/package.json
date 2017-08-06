@@ -13,7 +13,8 @@
     "react-dom": "^15.6.1",
     "react-highcharts": "^12.0.0",
     "react-scripts": "1.0.10",
-    "searchkit": "^2.1.2-0"
+    "searchkit": "^2.1.2-0",
+    "text-balancer": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
