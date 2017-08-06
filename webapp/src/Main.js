@@ -18,12 +18,15 @@ export default class Main extends Component {
 
     render() {
         const { stats } = this.state;
+        const { query } = this.props;
 
         return (
             <div>
                 <Intro count={stats.totalCount} />
-                <StatusCharts stats={stats} />
-                <PromiseList />
+                <StatusCharts stats={stats} config={{
+                    statusTotals: query.statusTotals || 'column'
+                }} />
+                <PromiseList showIds={query.ids === 'true'} />
             </div>
         );
     }

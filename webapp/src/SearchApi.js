@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import { keyBy } from 'lodash';
 
 const searchUrl =
     'https://search.holderdeord.no/hdo-promise-tracker-2017/_search';

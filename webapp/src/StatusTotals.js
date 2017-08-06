@@ -1,46 +1,95 @@
 import React from 'react';
 
-import { statusColors} from './utils';
+import { statusColors, statusTitles } from './utils';
 import ReactHighcharts from 'react-highcharts';
 
-function getChartConfig(data) {
+const TITLE = 'Løftestatus';
+
+function getBarConfig(data) {
+    const statuses = ['kept', 'partially-kept', 'broken', 'uncheckable'].sort((a, b) => data[b].percentage - data[a].percentage);
+
+    const conf = {
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: TITLE
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        xAxis: {
+            categories: statuses.map(e => statusTitles[e])
+        },
+
+        yAxis: {
+            labels: {
+                format: '{value} %'
+            }
+        },
+
+        series: [
+            {
+                name: 'Prosent av alle løfter',
+                colorByPoint: true,
+                data: statuses.map(s => ({
+                    y: data[s].percentage,
+                    color: statusColors[s]
+                }))
+            }
+        ]
+    };
+
+    console.log(conf);
+
+    return conf;
+}
+
+function getPieConfig(data) {
     return {
         chart: {
             type: 'pie'
         },
 
         title: {
-            text: 'Status'
+            text: TITLE
         },
 
         plotOptions: {
             pie: {
                 shadow: false,
                 center: ['50%', '50%'],
-                allowPointSelect: true,
+                allowPointSelect: true
                 // cursor: 'pointer',
-            //     dataLabels: {
-            //         enabled: window.innerWidth >= 768
-            //     },
-            //     showInLegend: window.innerWidth < 768
+                //     dataLabels: {
+                //         enabled: window.innerWidth >= 768
+                //     },
+                //     showInLegend: window.innerWidth < 768
             }
         },
 
         responsive: {
-                rules: [{
-                condition: {
-                    maxWidth: 400
-                },
-                chartOptions: {
-                    series: [{
-                        id: 'versions',
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
-                    }]
+            rules: [
+                {
+                    condition: {
+                        maxWidth: 400
+                    },
+                    chartOptions: {
+                        series: [
+                            {
+                                id: 'versions',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                showInLegend: true
+                            }
+                        ]
+                    }
                 }
-            }]
+            ]
         },
 
         series: [
@@ -79,5 +128,21 @@ function getChartConfig(data) {
     };
 }
 
-export default props =>
-    props.data ? <ReactHighcharts config={getChartConfig(props.data)} /> : null;
+export default props => {
+    if (!props.data) {
+        return null;
+    }
+
+    let config;
+
+    console.log(props.type)
+
+    if (props.type === 'donut') {
+        config = getPieConfig(props.data);
+    } else {
+        config = getBarConfig(props.data)
+        config.chart.type = props.type === 'column' ? 'column' : 'bar';
+    }
+
+    return <ReactHighcharts config={config} />;
+}
