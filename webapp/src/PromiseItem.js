@@ -77,7 +77,7 @@ export default class PromiseItem extends Component {
                         </div>
 
                         <small className="promise-row row">
-                            <div className="col-md-6">
+                            <div className="col-lg-6">
                                 <strong>Departement</strong>
                                 <p>
                                     {result._source.ministry}
@@ -86,7 +86,7 @@ export default class PromiseItem extends Component {
 
                             {result._source.propositions &&
                             result._source.propositions.length
-                                ? <div className="col-md-6">
+                                ? <div className="col-lg-6">
                                       <strong>Relevante forslag</strong>
                                       <ul>
                                           {result._source.propositions.map((l, i) =>

@@ -269,6 +269,10 @@ html ::selection {
   margin: 10px 0 0 0 !important;
 }
 
+.sk-search-box input.sk-search-box__text {
+  color: #444 !important;
+}
+
 .filter-button {
   position: absolute;
   right: 1rem;

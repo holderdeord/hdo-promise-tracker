@@ -111,16 +111,21 @@ export default class PromiseList extends Component {
                             customHighlight={customHighlight}
                             itemComponent={props => <PromiseItem {...props} showIds={this.props.showIds}/>}
                             scrollTo=".promise-list"
+
                         />
 
-                        <NoHits suggestionsField="text" />
+                        <div style={{padding: '.5rem 0'}}>
+                            <NoHits suggestionsField="text" />
+                        </div>
 
-                        <Pagination
-                            showNumbers={true}
-                            pageScope={1}
-                            showFirst={false}
-                            showText={true}
-                        />
+                        <div style={{padding: '.5rem 0'}}>
+                            <Pagination
+                                showNumbers={true}
+                                pageScope={1}
+                                showFirst={false}
+                                showText={true}
+                            />
+                        </div>
                     </div>
                 </div>
             </SearchkitProvider>
