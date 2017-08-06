@@ -31,19 +31,25 @@ function getBarConfig(data) {
             }
         },
 
+        tooltip: {
+            pointFormatter: function() {
+                return `${Math.round(this.y)} % (${this._data.count})`;
+            }
+        },
+
+
         series: [
             {
                 name: 'Prosent av alle løfter',
                 colorByPoint: true,
                 data: statuses.map(s => ({
                     y: data[s].percentage,
+                    _data: data[s],
                     color: statusColors[s]
                 }))
             }
         ]
     };
-
-    console.log(conf);
 
     return conf;
 }
@@ -134,8 +140,6 @@ export default props => {
     }
 
     let config;
-
-    console.log(props.type)
 
     if (props.type === 'donut') {
         config = getPieConfig(props.data);

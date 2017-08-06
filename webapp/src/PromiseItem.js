@@ -89,8 +89,8 @@ export default class PromiseItem extends Component {
                                 ? <div className="col-md-6">
                                       <strong>Relevante forslag</strong>
                                       <ul>
-                                          {result._source.propositions.map(l =>
-                                              <li key={l.url}>
+                                          {result._source.propositions.map((l, i) =>
+                                              <li key={l.url + i}>
                                                   <a href={l.url}>
                                                       {l.title || l.host}
                                                   </a>

@@ -4,30 +4,36 @@ import { statusColors } from './utils';
 
 const ReactHighcharts = require('react-highcharts'); // Expects that Highcharts was loaded in the code.
 
-function getMinistryChart(data) {
-    data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken.percentage : 0) - (a.statuses.broken ? a.statuses.broken.percentage : 0));
+function getMinistryChart(data, key = 'percentage') {
+    data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken[key] : 0) - (a.statuses.broken ? a.statuses.broken[key] : 0));
 
     return {
         chart: {
             type: 'bar',
         },
         title: {
-            text: 'Etter departement'
+            text: 'Etter departement',
+            enabled: false
         },
-        // subtitle: {
-        //     text: 'i prosent'
-        // },
         xAxis: {
             categories: data.map(e => e.name)
         },
         yAxis: {
             min: 0,
             max: 100,
+            labels: {
+                format: '{value} %'
+            },
             title: {
                 text: 'Prosent'
             },
             label: {
                 text: 'Prosent'
+            }
+        },
+        tooltip: {
+            pointFormatter: function() {
+                return `<strong>${this.series.name}:</strong> ${Math.round(this.y)} %`;
             }
         },
         legend: {
@@ -44,7 +50,7 @@ function getMinistryChart(data) {
                 color: statusColors.kept,
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses.kept ? e.statuses.kept.percentage : 0
+                    y: e.statuses.kept ? e.statuses.kept[key] : 0
                 }))
             },
             {
@@ -52,7 +58,7 @@ function getMinistryChart(data) {
                 color: statusColors['partially-kept'],
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses['partially-kept'] ? e.statuses['partially-kept'].percentage : 0
+                    y: e.statuses['partially-kept'] ? e.statuses['partially-kept'][key] : 0
                 }))
             },
             {
@@ -60,7 +66,7 @@ function getMinistryChart(data) {
                 color: statusColors.uncheckable,
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses.uncheckable ? e.statuses.uncheckable.percentage : 0
+                    y: e.statuses.uncheckable ? e.statuses.uncheckable[key] : 0
                 }))
             },
             {
@@ -68,7 +74,7 @@ function getMinistryChart(data) {
                 color: statusColors.broken,
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses.broken ? e.statuses.broken.percentage : 0
+                    y: e.statuses.broken ? e.statuses.broken[key] : 0
                 }))
             }
         ]
