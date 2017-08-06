@@ -19,7 +19,7 @@ function fetchJson(url) {
 fetchJson(
     'https://files.holderdeord.no/gdrive/14LtkMlUJ3K7BPz_bJOEVjtktBK9V3tVeDLu5D1qiRnQ.json'
 ).then(doc => {
-    const promises = doc.data.promises.filter(e => e.Slettes !== 'Ja');
+    const promises = doc.data.promises;
 
     return Promise.map(
         doc.data.promises,
@@ -43,10 +43,13 @@ fetchJson(
         { concurrency: 3 }
     ).then(promises => {
         const newPromises = [],
-            splitPromises = [];
+            splitPromises = [],
+            removePromises = [];
 
         promises.forEach(promise => {
-            if ((promise.raw.ID || '').match(/^\d+-\d/)) {
+            if (promise.raw.Slettes === 'Ja') {
+                removePromises.push(promise);
+            } else if ((promise.raw.ID || '').match(/^\d+-\d/)) {
                 splitPromises.push(promise);
             } else if (promise.found.type === 'error') {
                 newPromises.push(promise);
@@ -54,10 +57,11 @@ fetchJson(
         });
 
         fs.writeFileSync(
-            'new-or-split.json',
+            'promise-changes.json',
             JSON.stringify({
                 splitPromises: groupBy(splitPromises, p => p.found._links.self.href),
-                newPromises
+                newPromises,
+                removePromises,
             })
         );
     });
