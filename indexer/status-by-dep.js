@@ -50,8 +50,8 @@ es
             'Delvis holdt %',
             'Brutt',
             'Brutt %',
-            'Kan ikke etterprøves',
-            'Kan ikke etterprøves %',
+            'Ikke etterprøvbar',
+            'Ikke etterprøvbar %',
             'Totalt'
         ]);
 
@@ -60,13 +60,13 @@ es
             out.write([
                 bucket.key,
                 statuses.kept ? statuses.kept.doc_count : 0,
-                statuses.kept ? statuses.kept.doc_count * 100 / bucket.doc_count : 0,
+                statuses.kept ? (statuses.kept.doc_count * 100 / bucket.doc_count).toFixed(2) : 0,
                 statuses['partially-kept'] ? statuses['partially-kept'].doc_count : 0,
-                statuses['partially-kept'] ? statuses['partially-kept'].doc_count * 100 / bucket.doc_count : 0,
+                statuses['partially-kept'] ? (statuses['partially-kept'].doc_count * 100 / bucket.doc_count).toFixed(2) : 0,
                 statuses.broken ? statuses.broken.doc_count : 0,
-                statuses.broken ? statuses.broken.doc_count * 100 / bucket.doc_count : 0,
+                statuses.broken ? (statuses.broken.doc_count * 100 / bucket.doc_count).toFixed(2) : 0,
                 statuses.uncheckable ? statuses.uncheckable.doc_count : 0,
-                statuses.uncheckable ? statuses.uncheckable.doc_count * 100 / bucket.doc_count : 0,
+                statuses.uncheckable ? (statuses.uncheckable.doc_count * 100 / bucket.doc_count).toFixed(2) : 0,
                 bucket.doc_count
             ]);
         });

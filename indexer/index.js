@@ -3,6 +3,7 @@ const elasticsearch = require('elasticsearch');
 const fetch = require('node-fetch');
 const log = require('debug')('hdo-promise-tracker:indexer');
 const fs = require('fs');
+const getMetadata = require('./metadata');
 
 const INDEX = 'hdo-promise-tracker-2017';
 
@@ -62,7 +63,7 @@ function convertRawToDoc(raw) {
             checker: (raw['Hvem sjekker?'] || 'Ukjent').trim(),
             uncheckable,
             propositions: (raw['Relevante forslag'] || '')
-                .split(/\s/)
+                .split(/ og |\s/)
                 .map(e => e.trim())
                 .filter(e => e.length)
         };
@@ -77,13 +78,21 @@ function convertRawToDoc(raw) {
 
         ids.add(doc.id);
 
-        return doc;
+        if (doc.propositions.length) {
+            return Promise.props(
+                Object.assign(doc, {
+                    propositions: Promise.map(doc.propositions, getMetadata).filter(e => !!e)
+                })
+            );
+        }
+
+        return Promise.resolve(doc);
     } catch (error) {
         errors.push({
             error: error.toString(),
             raw: Object.assign(raw, { lofte: raw.LØFTE })
         });
-        return {};
+        return Promise.resolve({});
     }
 }
 
@@ -137,8 +146,14 @@ function createIndex() {
                                 },
                                 uncheckable: { type: 'boolean' },
                                 propositions: {
-                                    type: 'string',
-                                    index: 'not_analyzed'
+                                    properties: {
+                                        canonicalUrl: {
+                                            type: 'string',
+                                            index: 'not_analyzed'
+                                        },
+                                        title: { type: 'string' },
+                                        url: { type: 'string', index: 'not_analyzed' }
+                                    }
                                 }
                             }
                         }
@@ -154,7 +169,9 @@ createIndex()
     .then(fetchRaw)
     .then(doc => doc.data.promises)
     .filter(raw => raw.Slettes !== 'Ja')
-    .map(promise => indexPromise(convertRawToDoc(promise)), { concurrency: 3 })
+    .map(promise => convertRawToDoc(promise).then(doc => indexPromise(doc)), {
+        concurrency: 3
+    })
     .then(() => {
         if (errors.length) {
             log('found errors, check errors.json');
