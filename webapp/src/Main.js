@@ -5,8 +5,6 @@ import PromiseList from './PromiseList';
 import SearchApi from './SearchApi';
 import StatusCharts from './StatusCharts';
 
-import textBalancer from 'text-balancer';
-
 export default class Main extends Component {
     api = new SearchApi();
 
@@ -16,12 +14,6 @@ export default class Main extends Component {
 
     componentDidMount() {
         this.api.getStats().then(stats => this.setState({stats}))
-        textBalancer.balanceText();
-    }
-
-    componentDidUpdate() {
-        textBalancer.balanceText();
-
     }
 
     render() {
