@@ -22,7 +22,7 @@ export default class PromiseItem extends Component {
 
                         <div className="promise-row">
                             <div
-                                className="promise-text balance-text"
+                                className="promise-text"
                                 dangerouslySetInnerHTML={{
                                     __html:
                                         '«' +
