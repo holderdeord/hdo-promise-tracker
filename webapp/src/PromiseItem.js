@@ -87,7 +87,7 @@ export default class PromiseItem extends Component {
                             {result._source.propositions &&
                             result._source.propositions.length
                                 ? <div className="col-lg-6">
-                                      <strong>Relevante forslag</strong>
+                                      <strong>Kilder</strong>
                                       <ul>
                                           {result._source.propositions.map((l, i) =>
                                               <li key={l.url + i}>
