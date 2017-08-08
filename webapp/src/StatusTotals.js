@@ -5,7 +5,7 @@ import ReactHighcharts from 'react-highcharts';
 
 const TITLE = 'Løftestatus';
 
-function getBarConfig(data) {
+function getBarConfig(data, exporting = false) {
     const statuses = ['kept', 'partially-kept', 'broken', 'uncheckable'].sort((a, b) => data[b].percentage - data[a].percentage);
 
     const conf = {
@@ -15,6 +15,37 @@ function getBarConfig(data) {
 
         title: {
             text: TITLE
+        },
+
+        exporting: {
+            enabled: exporting,
+
+            chartOptions: {
+                chart: {
+                    backgroundColor: 'white'
+                },
+
+                title: {
+                    enabled: true,
+                    text: TITLE
+                },
+
+                credits: {
+                    enabled: true,
+                    text: 'sjekk.holderdeord.no',
+                    href: 'https://sjekk.holderdeord.no',
+                    position: { align: 'right' }
+                },
+
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            color: '#777'
+                        }
+                    }
+                }
+            }
         },
 
         legend: {
@@ -54,7 +85,7 @@ function getBarConfig(data) {
     return conf;
 }
 
-function getPieConfig(data) {
+function getPieConfig(data, exporting = false) {
     return {
         chart: {
             type: 'pie'
@@ -62,6 +93,37 @@ function getPieConfig(data) {
 
         title: {
             text: TITLE
+        },
+
+        exporting: {
+            enabled: exporting,
+
+            chartOptions: {
+                chart: {
+                    backgroundColor: 'white'
+                },
+
+                title: {
+                    enabled: true,
+                    text: TITLE
+                },
+
+                credits: {
+                    enabled: true,
+                    text: 'sjekk.holderdeord.no',
+                    href: 'https://sjekk.holderdeord.no',
+                    position: { align: 'right' }
+                },
+
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            color: '#777'
+                        }
+                    }
+                }
+            }
         },
 
         plotOptions: {
@@ -142,9 +204,9 @@ export default props => {
     let config;
 
     if (props.type === 'donut') {
-        config = getPieConfig(props.data);
+        config = getPieConfig(props.data, props.exporting);
     } else {
-        config = getBarConfig(props.data)
+        config = getBarConfig(props.data, props.exporting)
         config.chart.type = props.type === 'column' ? 'column' : 'bar';
     }
 

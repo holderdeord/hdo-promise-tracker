@@ -6,7 +6,13 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-const ReactHighcharts = require('react-highcharts');
+import ReactHighcharts from 'react-highcharts';
+
+import Exporting from 'highcharts/modules/exporting.src.js';
+import OfflineExporting from 'highcharts/modules/offline-exporting.src.js';
+
+Exporting(ReactHighcharts.Highcharts);
+OfflineExporting(ReactHighcharts.Highcharts);
 
 ReactHighcharts.Highcharts.setOptions({
        global: {

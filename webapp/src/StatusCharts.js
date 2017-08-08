@@ -8,13 +8,13 @@ export default ({ stats, config }) =>
         <div className="row">
             <div className="col-md-12 col-lg-5">
                 <div style={{padding: '1rem'}}>
-                    <StatusTotals data={stats.totals} type={config.statusTotals}/>
+                    <StatusTotals data={stats.totals} type={config.statusTotals} exporting={config.exporting}/>
                 </div>
             </div>
 
             <div className="col-md-12 col-lg-7">
                 <div style={{padding: '1rem'}}>
-                    <StatusByMinistry data={stats.ministries} />
+                    <StatusByMinistry data={stats.ministries} exporting={config.exporting} />
                 </div>
             </div>
         </div>

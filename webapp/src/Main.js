@@ -24,7 +24,8 @@ export default class Main extends Component {
             <div>
                 <Intro count={stats.totalCount} />
                 <StatusCharts stats={stats} config={{
-                    statusTotals: query.statusTotals || 'column'
+                    statusTotals: query.statusTotals || 'column',
+                    exporting: query.exporting === 'true'
                 }} />
                 <PromiseList showIds={query.ids === 'true'} />
             </div>
