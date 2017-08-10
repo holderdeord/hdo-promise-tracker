@@ -9,14 +9,8 @@ import {
     NoHits,
     RefinementListFilter,
     Pagination,
-    PaginationSelect,
-    Toggle,
-    Tabs,
-    ItemList,
     ItemComponent,
-    Select,
     CheckboxItemList,
-    ItemHistogramList
 } from 'searchkit';
 
 import PromiseItem from './PromiseItem';
