@@ -24,12 +24,26 @@ export default class SearchApi {
                             }
                         }
                     }
+                },
+                categories: {
+                    terms: {
+                        field: 'categories',
+                        size: 10
+                    },
+                    aggs: {
+                        statuses: {
+                            terms: {
+                                field: 'status'
+                            }
+                        }
+                    }
                 }
             },
             size: 0
         }).then(res => {
             const totals = {};
             const ministries = [];
+            const categories = [];
 
             const totalCount = res.hits.total;
 
@@ -54,7 +68,21 @@ export default class SearchApi {
                 })
             });
 
-            return { ministries, totals, totalCount };
+            res.aggregations.categories.buckets.forEach(bucket => {
+                categories.push({
+                    name: bucket.key,
+                    totalCount: bucket.doc_count,
+                    statuses: bucket.statuses.buckets.reduce((result, statusBucket) => ({
+                        ...result,
+                        [statusBucket.key]: {
+                            count: statusBucket.doc_count,
+                            percentage: statusBucket.doc_count * 100 / bucket.doc_count
+                        }
+                    }), {})
+                })
+            });
+
+            return { ministries, categories, totals, totalCount };
         });
     }
 

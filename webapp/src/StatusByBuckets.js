@@ -3,10 +3,9 @@ import React from 'react';
 import { statusColors } from './utils';
 
 const ReactHighcharts = require('react-highcharts'); // Expects that Highcharts was loaded in the code.
-const TITLE = 'Etter departement';
 
-function getMinistryChart(data, key = 'percentage', exporting = false) {
-    key = 'count';
+function getMinistryChart(data, opts = {}) {
+    const key = 'count';
     data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken[key] : 0) - (a.statuses.broken ? a.statuses.broken[key] : 0));
 
     return {
@@ -14,12 +13,12 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
             type: 'bar',
         },
         title: {
-            text: TITLE,
+            text: opts.title,
             enabled: false
         },
 
         exporting: {
-            enabled: exporting,
+            enabled: !!opts.exporting,
 
             chartOptions: {
                 chart: {
@@ -28,7 +27,7 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
 
                 title: {
                     enabled: true,
-                    text: TITLE
+                    text: opts.title
                 },
 
                 credits: {
@@ -121,4 +120,4 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
 }
 
 export default props =>
-    props.data ? <ReactHighcharts config={getMinistryChart(props.data, 'percentage', props.exporting)} /> : null;
+    props.data ? <ReactHighcharts config={getMinistryChart(props.data, {exporting: props.exporting, title: props.title})} /> : null;
