@@ -5,7 +5,7 @@ import { statusColors } from './utils';
 const ReactHighcharts = require('react-highcharts'); // Expects that Highcharts was loaded in the code.
 const TITLE = 'Etter departement';
 
-function getMinistryChart(data, key = 'percentage', exporting = true) {
+function getMinistryChart(data, key = 'percentage', exporting = false) {
     key = 'count';
     data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken[key] : 0) - (a.statuses.broken ? a.statuses.broken[key] : 0));
 
@@ -41,8 +41,11 @@ function getMinistryChart(data, key = 'percentage', exporting = true) {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true,
-                            color: '#777'
+                            enabled: false,
+                            color: '#777',
+                            formatter: function() {
+                                return `${Math.round(this.percentage)}% (${this.y})`;
+                            }
                         }
                     }
                 }
@@ -68,9 +71,10 @@ function getMinistryChart(data, key = 'percentage', exporting = true) {
         },
         tooltip: {
             pointFormatter: function() {
-                return `<strong>${this.series.name}:</strong> ${Math.round(this.percentage)}% (${this.y})`;
+                return `<strong>${this.series.name}:</strong> ${Math.round(this.percentage)}% (${this.y}/${this.total})`;
             }
         },
+
         legend: {
             reversed: true
         },

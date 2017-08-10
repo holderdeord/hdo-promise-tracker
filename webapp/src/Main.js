@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Intro from './Intro';
-import PromiseList from './PromiseList';
+import PromiseSearch from './PromiseSearch';
 import SearchApi from './SearchApi';
 import StatusCharts from './StatusCharts';
 
@@ -25,9 +25,9 @@ export default class Main extends Component {
                 <Intro count={stats.totalCount} />
                 <StatusCharts stats={stats} config={{
                     statusTotals: query.statusTotals || 'column',
-                    exporting: query.exporting === 'true'
+                    exporting: query.exporting !== 'false'
                 }} />
-                <PromiseList showIds={query.ids === 'true'} />
+                <PromiseSearch showIds={query.ids === 'true'} />
             </div>
         );
     }

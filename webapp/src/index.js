@@ -25,7 +25,12 @@ ReactHighcharts.Highcharts.setOptions({
            months: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],
            shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
            weekdays: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
-           thousandsSep: ' '
+           thousandsSep: ' ',
+           downloadJPEG: 'Last ned JPEG',
+           downloadPDF: 'Last ned PDF',
+           downloadPNG: 'Last ned PNG',
+           downloadSVG: 'Last ned SVG',
+           printChart: 'Skriv ut'
        },
 
        colors: [

@@ -1,7 +1,9 @@
+@import url("//fonts.googleapis.com/css?family=Lato:400,700,300,100");
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,arial,sans-serif;
 }
 
 header h1 {
@@ -273,15 +275,11 @@ html ::selection {
   color: #444 !important;
 }
 
-.filter-button {
-  position: absolute;
-  right: 1rem;
-  top: 10px;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAALklEQVR4Ae3TMREAQAwCwfdv+iOBJgWZ2UXAVTyAOn9nAnlQ+upMAPqeHQkcAjDB8g8ALyiZjwAAAABJRU5ErkJggg==);
-  background-size: cover;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+.sk-item-list-option__text {
+  /*font-size: 12px;*/
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 768px) {
@@ -326,5 +324,37 @@ html ::selection {
   .promise-details {
     max-height: none;
     opacity: 1;
+  }
+}
+
+.filter-container {
+  display: none;
+  padding: 0 1rem;
+}
+
+.filter {
+  margin: 1rem 0;
+}
+
+.filter-button {
+  display: block;
+  position: absolute;
+  right: 1rem;
+  top: 10px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAALklEQVR4Ae3TMREAQAwCwfdv+iOBJgWZ2UXAVTyAOn9nAnlQ+upMAPqeHQkcAjDB8g8ALyiZjwAAAABJRU5ErkJggg==);
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .filter-container {
+    display: block;
+    padding: 0 0 0 1rem;
+  }
+
+  .filter-button {
+    display: none;
   }
 }

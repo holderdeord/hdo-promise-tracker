@@ -40,7 +40,7 @@ function getBarConfig(data, exporting = false) {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true,
+                            enabled: false,
                             color: '#777'
                         }
                     }
