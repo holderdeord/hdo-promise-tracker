@@ -454,3 +454,8 @@ html ::selection {
 .sk-hits-stats {
   margin-right: 2rem;
 }
+
+.sk-toggle-option.is-active {
+  background-color: #666 !important;
+  border-color: #666 !important;
+}

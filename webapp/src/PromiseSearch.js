@@ -10,7 +10,7 @@ import {
     RefinementListFilter,
     Pagination,
     ItemComponent,
-    CheckboxItemList,
+    CheckboxItemList
 } from 'searchkit';
 
 import PromiseItem from './PromiseItem';
@@ -27,21 +27,19 @@ const sk = new SearchkitManager(
 sk.translateFunction = key => translations[key];
 let initial = true;
 
-sk.addResultsListener((results)=>{
-    if (!initial) {
-        document.querySelector('.promise-list').scrollIntoView();
+sk.addResultsListener(results => {
+    if (!initial && results.hits.hasChanged) {
+        document.querySelector('.promise-list').scrollIntoView({behavior: 'smooth'});
     }
 
     initial = false;
-})
-
-
+});
 
 export default class PromiseList extends Component {
-    state = { filtersShown: window.innerWidth >= 768 }
+    state = { filtersShown: window.innerWidth >= 768 };
 
     toggleFilters() {
-        this.setState({filtersShown: !this.state.filtersShown});
+        this.setState({ filtersShown: !this.state.filtersShown });
     }
 
     render() {
@@ -61,9 +59,14 @@ export default class PromiseList extends Component {
                                 <div
                                     className="filter-button"
                                     onClick={this.toggleFilters.bind(this)}
-                                ><i className="fa fa-filter"></i></div>
+                                >
+                                    <i className="fa fa-filter" />
+                                </div>
 
-                                <div className="hidden-sm-down text-xs-right" style={{paddingTop: '10px'}}>
+                                <div
+                                    className="hidden-sm-down text-xs-right"
+                                    style={{ paddingTop: '10px' }}
+                                >
                                     <HitsStats />
                                 </div>
                             </div>
@@ -76,15 +79,40 @@ export default class PromiseList extends Component {
                         </div>
                     </div>
 
-                    <hr style={{margin: '.5rem 0 0 0'}} />
+                    <hr style={{ margin: '.5rem 0 0 0' }} />
 
                     <div className="row">
-                        <div className="col-md-3 col-transition" style={this.state.filtersShown ? {} : { width: 0, height: 0, opacity: 0, padding: 0}}>
-                            <div className="filter-container" style={this.state.filtersShown ? {display: 'block'} : {}}>
+                        <div
+                            className="col-md-3 col-transition"
+                            style={
+                                this.state.filtersShown
+                                    ? {}
+                                    : {
+                                          width: 0,
+                                          height: 0,
+                                          opacity: 0,
+                                          padding: 0
+                                      }
+                            }
+                        >
+                            <div
+                                className="filter-container"
+                                style={
+                                    this.state.filtersShown
+                                        ? { display: 'block' }
+                                        : {}
+                                }
+                            >
                                 <div className="filter">
                                     <RefinementListFilter
                                         listComponent={CheckboxItemList}
-                                        itemComponent={props => <ItemComponent {...props} label={statusTitles[props.label]}/>}
+                                        itemComponent={props =>
+                                            <ItemComponent
+                                                {...props}
+                                                label={
+                                                    statusTitles[props.label]
+                                                }
+                                            />}
                                         id="status"
                                         title="Løftestatus"
                                         field="status"
@@ -114,22 +142,32 @@ export default class PromiseList extends Component {
                                 </div>
                             </div>
 
-                            <div className="filter-toggle" onClick={this.toggleFilters.bind(this)}>
-                                <i className="fa fa-chevron-left"></i>
-                            </div>
-
+                            {/*
+                                <div className="filter-toggle" onClick={this.toggleFilters.bind(this)}>
+                                    <i className="fa fa-chevron-left" />
+                                </div>;
+                            */}
                         </div>
 
-                        <div className={`col-transition col-md-${this.state.filtersShown ? '9' : '11'}`}>
+                        <div
+                            className={`col-transition col-md-${this.state
+                                .filtersShown
+                                ? '9'
+                                : '11'}`}
+                        >
                             <Hits
                                 hitsPerPage={30}
                                 highlightFields={['text']}
                                 customHighlight={customHighlight}
-                                itemComponent={props => <PromiseItem {...props} showIds={this.props.showIds}/>}
+                                itemComponent={props =>
+                                    <PromiseItem
+                                        {...props}
+                                        showIds={this.props.showIds}
+                                    />}
                                 scrollTo=".promise-list"
                             />
 
-                            <div style={{padding: '.5rem 0'}}>
+                            <div style={{ padding: '.5rem 0' }}>
                                 <NoHits suggestionsField="text" />
                             </div>
                         </div>
@@ -137,7 +175,7 @@ export default class PromiseList extends Component {
 
                     <div className="row">
                         <div className="col-md-12">
-                            <div style={{padding: '.5rem 0'}}>
+                            <div style={{ padding: '.5rem 0' }}>
                                 <Pagination
                                     showNumbers={true}
                                     pageScope={1}
@@ -147,10 +185,8 @@ export default class PromiseList extends Component {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </SearchkitProvider>
         );
     }
 }
-

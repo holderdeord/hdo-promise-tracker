@@ -14,6 +14,9 @@ import OfflineExporting from 'highcharts/modules/offline-exporting.src.js';
 Exporting(ReactHighcharts.Highcharts);
 OfflineExporting(ReactHighcharts.Highcharts);
 
+require('smoothscroll-polyfill').polyfill();
+require('raf/polyfill');
+
 ReactHighcharts.Highcharts.setOptions({
        global: {
            useUTC: false
@@ -85,20 +88,20 @@ ReactHighcharts.Highcharts.setOptions({
        title: {
            style: {
                color: 'black',
-               font: 'bold 16px "Roboto", Helvetica Neue", "Helvetica", Arial, sans-serif'
+               font: 'bold 16px "Roboto Slab",Georgia,Times New Roman,Times,serif'
            }
        },
 
        subtitle: {
            style: {
                color: '#666',
-               font: 'normal lighter 12px "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif'
+               font: 'normal lighter 12px Roboto Slab,Georgia,Times New Roman,Times,serif'
            }
        },
 
        legend: {
            itemStyle: {
-               font: '9pt "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif',
+               font: '9pt Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,arial,sans-serif',
                color: '#111'
            },
 

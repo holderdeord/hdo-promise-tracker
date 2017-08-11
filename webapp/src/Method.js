@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
 export default () =>
-    <div className="hdo-card" style={{padding: '1rem'}}>
-        <h2>Metode</h2>
+    <div className="row">
+        <div className="col-md-6 col-lg-offset-3">
+            <div className="hdo-card" style={{ padding: '1rem' }}>
+                <h2>Metode</h2>
 
-        <div className="row">
-            <div className="col-md-6">
                 <p>
                     De 776 løftene som er gjennomgått er hentet fra
                     Sundvoldenerklæringen - plattformen som Høyre og
                     Fremskrittspartiet fremforhandlet etter stortingsvalget i
                     2013 og etter at samarbeidsavtalen med Kristelig Folkeparti
-                    og Venstre var på plass.{" "}
+                    og Venstre var på plass.{' '}
                 </p>
 
                 <p>
@@ -37,9 +37,7 @@ export default () =>
                     vektet løftene. Alle løfter, uansett hvor store eller små de
                     er, har blitt behandlet likt.
                 </p>
-            </div>
 
-            <div className="col-md-6">
                 <h5>Kilder</h5>
 
                 <p>
@@ -66,11 +64,7 @@ export default () =>
                     Det er viktig for oss å være åpne om våre vurderinger, og vi
                     har lenket til alt kildemateriale som er brukt.
                 </p>
-            </div>
-        </div>
 
-        <div className="row">
-            <div className="col-md-6">
                 <h5>Kategorisering</h5>
 
                 <p>
@@ -122,7 +116,7 @@ export default () =>
                     som brutt, med mindre det har vært andre elementer eller
                     tiltak som gjør at vi har vurdert løftet som delvis holdt.
                     Dette er fordi løftene i regjeringserklæringen gjelder saker
-                    regjeringen ville gjennomføre i denne stortingsperioden.{" "}
+                    regjeringen ville gjennomføre i denne stortingsperioden.{' '}
                 </p>
             </div>
         </div>

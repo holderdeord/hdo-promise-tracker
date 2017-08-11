@@ -9,11 +9,13 @@
     "highcharts": "^5.0.14",
     "isomorphic-fetch": "^2.2.1",
     "query-string": "^5.0.0",
+    "raf": "^3.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-highcharts": "^12.0.0",
     "react-scripts": "1.0.10",
-    "searchkit": "^2.1.2-0"
+    "searchkit": "^2.1.2-0",
+    "smoothscroll-polyfill": "^0.3.6"
   },
   "scripts": {
     "start": "react-scripts start",
