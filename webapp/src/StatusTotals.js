@@ -10,7 +10,8 @@ function getBarConfig(data, exporting = false) {
 
     const conf = {
         chart: {
-            type: 'column'
+            type: 'column',
+            height: 450
         },
 
         title: {

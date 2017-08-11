@@ -107,8 +107,8 @@ export default () =>
                 </p>
 
                 <p>
-                    De fleste løftene som har blitt kategorisert som “kan ikke
-                    etterprøves” er enten så uklare eller har en målhorisont så
+                    De fleste løftene som har blitt kategorisert som «kan ikke
+                    etterprøves» er enten så uklare eller har en målhorisont så
                     langt inn i fremtiden at de ikke lar seg sjekke på en
                     fornuftig måte. Uavhengig av hvordan vi har kategorisert
                     løftene, kommer det i kommentarene frem hvordan vi har

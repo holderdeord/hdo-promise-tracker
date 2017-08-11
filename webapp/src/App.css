@@ -145,6 +145,12 @@ html ::selection {
   padding-top: 1rem;
 }
 
+.promise-ministry {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .promise-item .col {
   border-left-width: 5px;
   border-left-style: solid;
@@ -194,10 +200,15 @@ html ::selection {
 
 .promise-item ul {
   list-style-type: square;
-  padding-left: 1rem;
+  padding-left: 1px;
 }
 
 .promise-item li {
+  list-style-position: inside;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   margin: 0;
 }
 
@@ -272,8 +283,14 @@ html ::selection {
   color: #444 !important;
 }
 
+.sk-item-list-option__count {
+  font-weight: 500;
+}
+
 .sk-item-list-option__text {
-  /*font-size: 12px;*/
+  padding-right: 1rem;
+  font-size: 11px;
+  font-weight: 500;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -329,7 +346,6 @@ html ::selection {
   padding: 5px;
   margin: 5px;
   text-transform: uppercase;
-  letter-spacing: 1px;
   font-size: .7rem;
   transition: background-color .4s ease-out;
   cursor: pointer;

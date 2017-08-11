@@ -23,6 +23,15 @@ const sk = new SearchkitManager(
 );
 
 sk.translateFunction = key => translations[key];
+let initial = true;
+
+sk.addResultsListener((results)=>{
+    if (!initial) {
+        document.querySelector('.promise-list').scrollIntoView();
+    }
+
+    initial = false;
+})
 
 export default class PromiseList extends Component {
     state = { mobileFiltersShown: false }

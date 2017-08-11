@@ -79,7 +79,7 @@ export default class PromiseItem extends Component {
                         <small className="promise-row row">
                             <div className="col-lg-6">
                                 <strong>Departement</strong>
-                                <p>
+                                <p className="promise-ministry">
                                     {result._source.ministry}
                                 </p>
                             </div>

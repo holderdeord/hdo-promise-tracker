@@ -60,7 +60,8 @@ ReactHighcharts.Highcharts.setOptions({
            tickWidth: 0,
            labels: {
                style: {
-                   fontWeight: '600'
+                   fontWeight: '600',
+                   color: 'black'
                }
            }
        },
@@ -83,7 +84,7 @@ ReactHighcharts.Highcharts.setOptions({
 
        title: {
            style: {
-               color: '#111',
+               color: 'black',
                font: 'bold 16px "Roboto", Helvetica Neue", "Helvetica", Arial, sans-serif'
            }
        },

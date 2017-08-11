@@ -12,6 +12,7 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
     return {
         chart: {
             type: 'bar',
+            height: 450
         },
         title: {
             text: TITLE,
