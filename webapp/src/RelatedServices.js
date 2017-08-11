@@ -5,7 +5,7 @@ export default class RelatedServices extends Component {
     state = { services: [] };
 
     componentDidMount() {
-        let service = window.location.host.includes('localhost') ? 'local' : 'enighet';
+        let service = window.location.host.includes('localhost') ? 'local' : 'sjekk';
 
         fetch(`https://files.holderdeord.no/data/hdo/services.json?service=${service}`)
             .then(res => res.ok ? res.json() : [])

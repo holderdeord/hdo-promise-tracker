@@ -53,6 +53,10 @@ export default class PromiseItem extends Component {
                                 <div
                                     onClick={() =>
                                         this.setState({ expanded: true })}
+                                    data-ga-on="click"
+                                    data-ga-event-category="Les hvorfor"
+                                    data-ga-event-action="click"
+
                                 >
                                     Les hvorfor{' '}
                                     <i className="fa fa-chevron-down" />

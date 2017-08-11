@@ -48,6 +48,11 @@ export default class StatusCharts extends React.Component {
                         <div
                             className="toggle-details"
                             onClick={() => this.setState({ detailsOpen: true })}
+
+                            data-ga-on="click"
+                            data-ga-event-category="Se detaljer"
+                            data-ga-event-action="click"
+
                             style={{
                                 display: this.state.detailsOpen
                                     ? 'none'

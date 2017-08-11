@@ -11,11 +11,15 @@ import ReactHighcharts from 'react-highcharts';
 import Exporting from 'highcharts/modules/exporting.src.js';
 import OfflineExporting from 'highcharts/modules/offline-exporting.src.js';
 
+import smoothscroll from 'smoothscroll-polyfill';
+import 'raf/polyfill';
+import './tracking';
+
+
 Exporting(ReactHighcharts.Highcharts);
 OfflineExporting(ReactHighcharts.Highcharts);
 
-require('smoothscroll-polyfill').polyfill();
-require('raf/polyfill');
+smoothscroll.polyfill();
 
 ReactHighcharts.Highcharts.setOptions({
        global: {
@@ -126,3 +130,4 @@ ReactHighcharts.Highcharts.setOptions({
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
+

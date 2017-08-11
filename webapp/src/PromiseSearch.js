@@ -18,14 +18,11 @@ import PromiseItem from './PromiseItem';
 import { translations, customHighlight, statusTitles } from './utils';
 import 'searchkit/release/theme.css';
 
-import cn from 'classnames';
-
 const sk = new SearchkitManager(
     'https://search.holderdeord.no/hdo-promise-tracker-2017/'
 );
 
 sk.translateFunction = key => translations[key];
-window.sk = sk;
 
 let initial = true;
 

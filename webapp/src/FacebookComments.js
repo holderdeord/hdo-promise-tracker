@@ -1,5 +1,4 @@
 import React from 'react';
-import url from 'url';
 
 export default () =>
     <div className="row">
