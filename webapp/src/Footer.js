@@ -25,6 +25,8 @@ export default () =>
                         <a href="http://opensource.org/licenses/BSD-3-Clause">
                             BSD
                         </a>.
+
+                        <p>Du kan <a href="https://files.holderdeord.no/data/csv/loftesjekk-2017.csv">laste ned hele datasettet</a> som CSV.</p>
                     </div>
 
 

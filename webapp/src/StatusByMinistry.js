@@ -7,7 +7,7 @@ const TITLE = 'Etter departement';
 
 function getMinistryChart(data, key = 'percentage', exporting = false) {
     key = 'count';
-    data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken[key] : 0) - (a.statuses.broken ? a.statuses.broken[key] : 0));
+    data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken.percentage : 0) - (a.statuses.broken ? a.statuses.broken.percentage : 0));
 
     return {
         chart: {

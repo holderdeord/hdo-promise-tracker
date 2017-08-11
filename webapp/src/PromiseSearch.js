@@ -18,6 +18,8 @@ import PromiseItem from './PromiseItem';
 import { translations, customHighlight, statusTitles } from './utils';
 import 'searchkit/release/theme.css';
 
+import cn from 'classnames';
+
 const sk = new SearchkitManager(
     'https://search.holderdeord.no/hdo-promise-tracker-2017/'
 );
@@ -33,8 +35,14 @@ sk.addResultsListener((results)=>{
     initial = false;
 })
 
+
+
 export default class PromiseList extends Component {
-    state = { mobileFiltersShown: false }
+    state = { filtersShown: window.innerWidth >= 768 }
+
+    toggleFilters() {
+        this.setState({filtersShown: !this.state.filtersShown});
+    }
 
     render() {
         return (
@@ -52,8 +60,8 @@ export default class PromiseList extends Component {
                             <div className="col-xs-2">
                                 <div
                                     className="filter-button"
-                                    onClick={() => this.setState({mobileFiltersShown: !this.state.mobileFiltersShown})}
-                                />
+                                    onClick={this.toggleFilters.bind(this)}
+                                ><i className="fa fa-filter"></i></div>
 
                                 <div className="hidden-sm-down text-xs-right" style={{paddingTop: '10px'}}>
                                     <HitsStats />
@@ -71,8 +79,8 @@ export default class PromiseList extends Component {
                     <hr style={{margin: '.5rem 0 0 0'}} />
 
                     <div className="row">
-                        <div className="col-md-3">
-                            <div className="filter-container" style={this.state.mobileFiltersShown ? {display: 'block'} : {}}>
+                        <div className="col-md-3 col-transition" style={this.state.filtersShown ? {} : { width: 0, height: 0, opacity: 0, padding: 0}}>
+                            <div className="filter-container" style={this.state.filtersShown ? {display: 'block'} : {}}>
                                 <div className="filter">
                                     <RefinementListFilter
                                         listComponent={CheckboxItemList}
@@ -105,9 +113,14 @@ export default class PromiseList extends Component {
                                     />
                                 </div>
                             </div>
+
+                            <div className="filter-toggle" onClick={this.toggleFilters.bind(this)}>
+                                <i className="fa fa-chevron-left"></i>
+                            </div>
+
                         </div>
 
-                        <div className="col-md-9">
+                        <div className={`col-transition col-md-${this.state.filtersShown ? '9' : '11'}`}>
                             <Hits
                                 hitsPerPage={30}
                                 highlightFields={['text']}
@@ -119,7 +132,11 @@ export default class PromiseList extends Component {
                             <div style={{padding: '.5rem 0'}}>
                                 <NoHits suggestionsField="text" />
                             </div>
+                        </div>
+                    </div>
 
+                    <div className="row">
+                        <div className="col-md-12">
                             <div style={{padding: '.5rem 0'}}>
                                 <Pagination
                                     showNumbers={true}
@@ -130,6 +147,7 @@ export default class PromiseList extends Component {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </SearchkitProvider>
         );

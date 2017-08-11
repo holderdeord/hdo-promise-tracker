@@ -6,6 +6,10 @@ body {
   font-family: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,arial,sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 header h1 {
   font-size: 3rem;
   padding-top: 2rem;
@@ -138,11 +142,18 @@ html ::selection {
 }
 
 .promise-item {
-  padding: 0 .95rem 0;
+  padding: 0 .95rem 1rem;
 }
 
-.promise-item > .row {
-  padding-top: 1rem;
+@media (min-width: 768px) {
+  .promise-item {
+    padding-bottom: 0;
+    padding-left: 0;
+  }
+
+  .promise-item > .row {
+    padding-bottom: 1rem;
+  }
 }
 
 .promise-ministry {
@@ -156,11 +167,12 @@ html ::selection {
   border-left-style: solid;
 }
 
-.promise-item .promise-status {
+.promise-item .promise-status h5 {
+  margin-bottom: 0;
+  padding: 1rem 0 0 0;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1.5px;
-  padding: 0 0 0 1rem;
 }
 
 .promise-item .promise-row {
@@ -183,14 +195,15 @@ html ::selection {
 
   .promise-item .promise-row {
     padding-top: 0;
+    padding-left: 2rem;
     border: none;
   }
 }
 
 .promise-item .promise-text {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-style: italic;
-  padding-bottom: 1.2rem;
+  padding: 0 0 1.2rem 0;
 }
 
 .promise-item h6 {
@@ -239,6 +252,7 @@ html ::selection {
 }
 
 .promise-status-kept,
+.promise-status-kept .row,
 .promise-status-kept .col {
   border-left-color: rgb(0, 166, 212);
 }
@@ -399,14 +413,12 @@ html ::selection {
 }
 
 .filter-button {
+  color: #777;
   display: block;
   position: absolute;
-  right: 1rem;
+  right: .9375rem;
+  text-align: center;
   top: 10px;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAALklEQVR4Ae3TMREAQAwCwfdv+iOBJgWZ2UXAVTyAOn9nAnlQ+upMAPqeHQkcAjDB8g8ALyiZjwAAAABJRU5ErkJggg==);
-  background-size: cover;
-  width: 24px;
-  height: 24px;
   cursor: pointer;
 }
 
@@ -415,8 +427,30 @@ html ::selection {
     display: block;
     padding: 0 0 0 1rem;
   }
+}
 
-  .filter-button {
-    display: none;
-  }
+.sk-refinement-list__view-more-action {
+  color: black !important;
+  text-decoration: underline;
+}
+
+.sk-pagination-navigation.is-numbered {
+    width: 300px !important;
+}
+
+.col-transition {
+  transition: width .3s ease-out, padding .3s ease-out, height 1s ease-out;
+}
+
+.filter-toggle {
+  display: inline-block;
+  padding: 1rem;
+}
+
+.filter-toggle:hover {
+  background-color: #eee;
+}
+
+.sk-hits-stats {
+  margin-right: 2rem;
 }

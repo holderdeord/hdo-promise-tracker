@@ -16,10 +16,19 @@ export default class PromiseItem extends Component {
             >
                 <div className="row">
                     <div className="col col-md-6 col-lg-5">
-                        <h5 className="promise-status">
-                            {statusTitles[result._source.status] || `Ukjent`}:
-                        </h5>
+                        <div className="promise-row">
+                            <div className="promise-status">
+                                <h5>
+                                    {statusTitles[result._source.status] ||
+                                        `Ukjent`}:
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div className="row">
+                    <div className="col col-md-6 col-lg-5">
                         <div className="promise-row">
                             <div
                                 className="promise-text"
@@ -53,8 +62,13 @@ export default class PromiseItem extends Component {
 
                         {showIds
                             ? <div className="promise-row">
-                                  <div><strong>ID:</strong> {result._source.id}</div>
-                                  <div><strong>Sjekket av:</strong> {result._source.checker}</div>
+                                  <div>
+                                      <strong>ID:</strong> {result._source.id}
+                                  </div>
+                                  <div>
+                                      <strong>Sjekket av:</strong>{' '}
+                                      {result._source.checker}
+                                  </div>
                               </div>
                             : null}
                     </div>
@@ -76,30 +90,48 @@ export default class PromiseItem extends Component {
                                 : null}
                         </div>
 
-                        <small className="promise-row row">
-                            <div className="col-lg-6">
-                                <strong>Departement</strong>
-                                <p className="promise-ministry">
-                                    {result._source.ministry}
-                                </p>
+                        <div className="row">
+                            <div className={`col-lg-${result._source.propositions.length ? '6' : '12'}`}>
+                                <div className="promise-row">
+                                    <small>
+                                        <strong>Departement</strong>
+                                        <p
+                                            className="promise-ministry"
+                                            title={result._source.ministry}
+                                        >
+                                            {result._source.ministry}
+                                        </p>
+                                    </small>
+                                </div>
                             </div>
 
                             {result._source.propositions &&
                             result._source.propositions.length
                                 ? <div className="col-lg-6">
-                                      <strong>Kilder</strong>
-                                      <ul>
-                                          {result._source.propositions.map((l, i) =>
-                                              <li key={l.url + i}>
-                                                  <a href={l.url}>
-                                                      {l.title || l.host}
-                                                  </a>
-                                              </li>
-                                          )}
-                                      </ul>
+                                      <div className="promise-row">
+                                        <small>
+                                              <strong>Kilder</strong>
+                                              <ul>
+                                                  {result._source.propositions.map(
+                                                      (l, i) =>
+                                                          <li
+                                                              key={l.url + i}
+                                                              title={
+                                                                  l.title || l.host
+                                                              }
+                                                          >
+                                                              <a href={l.url}>
+                                                                  {l.title ||
+                                                                      l.host}
+                                                              </a>
+                                                          </li>
+                                                  )}
+                                              </ul>
+                                        </small>
+                                      </div>
                                   </div>
                                 : null}
-                        </small>
+                        </div>
                     </div>
                 </div>
             </div>
