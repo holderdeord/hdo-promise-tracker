@@ -5,6 +5,7 @@ import PromiseSearch from './PromiseSearch';
 import SearchApi from './SearchApi';
 import StatusCharts from './StatusCharts';
 import Method from './Method';
+import FacebookComments from './FacebookComments';
 
 export default class Main extends Component {
     api = new SearchApi();

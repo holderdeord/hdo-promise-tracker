@@ -142,6 +142,8 @@ html ::selection {
 }
 
 .promise-item {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   padding: 0 .95rem 1rem;
 }
 
@@ -458,4 +460,12 @@ html ::selection {
 .sk-toggle-option.is-active {
   background-color: #666 !important;
   border-color: #666 !important;
+}
+
+#comments {
+    font-family: "Helvetica Neue", "Helvetica", arial, sans-serif;
+    font-size: 1rem;
+    list-style-type: none;
+    padding: 0;
+
 }

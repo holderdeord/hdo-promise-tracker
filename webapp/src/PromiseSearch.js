@@ -25,6 +25,8 @@ const sk = new SearchkitManager(
 );
 
 sk.translateFunction = key => translations[key];
+window.sk = sk;
+
 let initial = true;
 
 sk.addResultsListener(results => {

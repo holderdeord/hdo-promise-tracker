@@ -2,7 +2,7 @@ import React from 'react';
 
 export default () =>
     <div className="row">
-        <div className="col-md-6 col-lg-offset-3">
+        <div className="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
             <div className="hdo-card" style={{ padding: '1rem' }}>
                 <h2>Metode</h2>
 
