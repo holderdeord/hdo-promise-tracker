@@ -422,6 +422,12 @@ html ::selection {
   text-align: center;
   top: 10px;
   cursor: pointer;
+  transition: color .3s;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  color: #111;
 }
 
 @media screen and (min-width: 768px) {
@@ -467,5 +473,5 @@ html ::selection {
     font-size: 1rem;
     list-style-type: none;
     padding: 0;
-
 }
+

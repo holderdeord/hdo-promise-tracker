@@ -87,25 +87,25 @@ export default class StatusTable extends Component {
                         {stats.totals ? (
                             <tr>
                                 <th>Totalt</th>
-                                <td className="num text-xs-right">
+                                <th className="num text-xs-right">
                                     {stats.totals.kept ? Math.round(stats.totals.kept.percentage) : 0} %{' '}
                                     ({stats.totals.kept ? stats.totals.kept.count : 0})
-                                </td>
-                                <td className="num text-xs-right">
+                                </th>
+                                <th className="num text-xs-right">
                                     {stats.totals['partially-kept'] ? Math.round(stats.totals['partially-kept'].percentage) : 0} %{' '}
                                     ({stats.totals['partially-kept'] ? stats.totals['partially-kept'].count : 0})
-                                </td>
-                                <td className="num text-xs-right">
+                                </th>
+                                <th className="num text-xs-right">
                                     {stats.totals.broken ? Math.round(stats.totals.broken.percentage) : 0} %{' '}
                                     ({stats.totals.broken ? stats.totals.broken.count : 0})
-                                </td>
-                                <td className="num text-xs-right">
+                                </th>
+                                <th className="num text-xs-right">
                                     {stats.totals.uncheckable ? Math.round(stats.totals.uncheckable.percentage) : 0} %{' '}
                                     ({stats.totals.uncheckable ? stats.totals.uncheckable.count : 0})
-                                </td>
-                                <td className="num text-xs-right">
+                                </th>
+                                <th className="num text-xs-right">
                                     {stats.totalCount}
-                                </td>
+                                </th>
                             </tr>
                         ) : null}
                     </tbody>

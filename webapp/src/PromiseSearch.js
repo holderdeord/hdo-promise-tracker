@@ -17,6 +17,7 @@ import PromiseItem from './PromiseItem';
 
 import { translations, customHighlight, statusTitles } from './utils';
 import 'searchkit/release/theme.css';
+import cn from 'classnames';
 
 const sk = new SearchkitManager(
     'https://search.holderdeord.no/hdo-promise-tracker-2017/'
@@ -47,16 +48,16 @@ export default class PromiseList extends Component {
                 <div className="hdo-card promise-list">
                     <div className="container">
                         <div className="row">
-                            <div className="col-xs-10">
+                            <div className="col-xs-8">
                                 <SearchBox
                                     searchOnChange
                                     prefixQueryFields={['text']}
                                 />
                             </div>
 
-                            <div className="col-xs-2">
+                            <div className="col-xs-4">
                                 <div
-                                    className="filter-button"
+                                    className={cn('filter-button', {active: this.state.filtersShown})}
                                     onClick={this.toggleFilters.bind(this)}
                                 >
                                     <i className="fa fa-filter" />
