@@ -4,6 +4,7 @@ import Intro from './Intro';
 import PromiseSearch from './PromiseSearch';
 import SearchApi from './SearchApi';
 import StatusCharts from './StatusCharts';
+import Method from './Method';
 
 export default class Main extends Component {
     api = new SearchApi();
@@ -28,6 +29,7 @@ export default class Main extends Component {
                     exporting: query.exporting !== 'false'
                 }} />
                 <PromiseSearch showIds={query.ids === 'true'} />
+                <Method />
             </div>
         );
     }
