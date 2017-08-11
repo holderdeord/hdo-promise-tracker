@@ -157,17 +157,6 @@ export default () =>
                         </ul>
                     </div>
                 </div>
-
-                <div className="row">
-                    <div className="col-md-3 text-md-right">
-                        <h5>Utvikling</h5>
-                    </div>
-
-                    <div className="col-md-8 col-lg-6">
-                        Jari Bakken
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>;
