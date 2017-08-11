@@ -26,6 +26,8 @@ export default () =>
                             BSD
                         </a>.
                     </div>
+
+
                     <div>
                         Spørsmål? Ta{' '}
                         <a

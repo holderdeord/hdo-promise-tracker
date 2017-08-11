@@ -47,6 +47,7 @@ header a {
   background-size: auto 2.5rem;
   font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
 }
+
 @media screen and (max-width: 48em) {
   .hdo-logo {
     text-align: center;
@@ -200,10 +201,6 @@ html ::selection {
   margin: 0;
 }
 
-/*.promise-item p, .promise-item ul {
-  font-size: .9rem;
-}
-*/
 .hdo-color-dark {
   background-color: #606b82;
 }
@@ -325,6 +322,55 @@ html ::selection {
     max-height: none;
     opacity: 1;
   }
+}
+
+.toggle-details {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: .7rem;
+  transition: background-color .4s ease-out;
+  cursor: pointer;
+}
+
+.toggle-details:hover {
+  background-color: #eee;
+}
+
+.details {
+  font-size: .7rem;
+  text-align: left;
+  opacity: 0;
+  display: none;
+  transition: opacity .3s;
+}
+
+.details.open {
+  display: block;
+  opacity: 1;
+  padding: 1rem;
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ministry-name {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.num {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .filter-container {
