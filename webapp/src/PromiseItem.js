@@ -8,6 +8,7 @@ export default class PromiseItem extends Component {
 
     render() {
         const { result, showIds } = this.props;
+        const { expanded } = this.state;
 
         return (
             <div
@@ -15,13 +16,17 @@ export default class PromiseItem extends Component {
                     .status}`}
             >
                 <div className="row">
-                    <div className="col col-md-6 col-lg-5">
+                    <div className="col col-md-12">
                         <div className="promise-row">
                             <div className="promise-status">
                                 <h5>
                                     {statusTitles[result._source.status] ||
                                         `Ukjent`}:
                                 </h5>
+
+                                <a href={`/?q=${encodeURIComponent(`_id:${result._id}`)}`} className={cn('promise-permalink', {'hidden-sm-down': !expanded})}>
+                                    <i className="fa fa-link"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -46,8 +51,7 @@ export default class PromiseItem extends Component {
 
                             <div
                                 className={cn('promise-read-more', {
-                                    'promise-read-more-expanded': this.state
-                                        .expanded
+                                    'promise-read-more-expanded': expanded
                                 })}
                             >
                                 <div

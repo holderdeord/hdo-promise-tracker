@@ -475,3 +475,21 @@ html ::selection {
     padding: 0;
 }
 
+.promise-permalink {
+  position: absolute;
+  right: 1rem;
+  top: 2rem;
+  color: #777;
+  font-size: .8rem;
+  transition: color .3s;
+}
+
+.promise-permalink:hover {
+  color: black;
+}
+
+@media screen and (min-width: 768px) {
+  .promise-permalink {
+    top: 1rem;
+  }
+}

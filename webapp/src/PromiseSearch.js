@@ -28,12 +28,18 @@ sk.translateFunction = key => translations[key];
 let initial = true;
 
 sk.addResultsListener(results => {
-    if (!initial && results.hits.hasChanged) {
+    const isChange = !initial && results.hits.hasChanged;
+    if (isChange || (initial && isPromiseIdQuery())) {
         document.querySelector('.promise-list').scrollIntoView({behavior: 'smooth'});
     }
 
     initial = false;
 });
+
+function isPromiseIdQuery() {
+    const str = sk.getQueryAccessor().getQueryString();
+    return str && str.match(/^_id:/);
+}
 
 export default class PromiseList extends Component {
     state = { filtersShown: window.innerWidth >= 768 };
@@ -153,7 +159,7 @@ export default class PromiseList extends Component {
                             className={`col-transition col-md-${this.state
                                 .filtersShown
                                 ? '9'
-                                : '11'}`}
+                                : '12'}`}
                         >
                             <Hits
                                 hitsPerPage={30}

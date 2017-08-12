@@ -38,7 +38,7 @@ export default class SharingLinks extends Component {
     handleTwitterShare(event) {
         event.preventDefault();
 
-        let text = 'Hvem stemmer oftest sammen på Stortinget?';
+        let text = 'Har regjeringen holdt det de lovet de siste fire årene?';
 
         let shareUrl = `https://twitter.com/intent/tweet
                             ?text=${encodeURIComponent(text)}
