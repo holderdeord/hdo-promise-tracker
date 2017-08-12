@@ -44,6 +44,45 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <link rel="stylesheet" href="https://files.holderdeord.no/dev/hdo-bootstrap/hdo-bootstrap.css">
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "url": "https://www.holderdeord.no/",
+            "sameAs": [
+              "https://twitter.com/holderdeord",
+              "https://facebook.com/holderdeord"
+            ],
+            "name": "Holder de ord",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://data.holderdeord.no/assets/og_logo-8b1cb2e26b510ee498ed698c4e9992df.png",
+              "width": 375,
+              "height": 375
+            }
+          },
+          {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "Løftesjekk 2017",
+            "alternateName": "sjekk.holderdeord.no",
+            "url": "https://sjekk.holderdeord.no/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://sjekk.holderdeord.no/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+
+    </script>
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml"/>
+
   </head>
   <body>
     <noscript>

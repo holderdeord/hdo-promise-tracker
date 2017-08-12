@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+ <ShortName>Løftesjekk 2017 – Holder de ord</ShortName>
+ <Description>Vi har sjekket om regjeringen har holdt løftene sine de siste fire årene.</Description>
+ <Url type="text/html" method="get" template="https://sjekk.holderdeord.no/?q={searchTerms}"/>
+</OpenSearchDescription>
