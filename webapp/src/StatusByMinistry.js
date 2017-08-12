@@ -5,9 +5,19 @@ import { statusColors } from './utils';
 const ReactHighcharts = require('react-highcharts'); // Expects that Highcharts was loaded in the code.
 const TITLE = 'Etter departement';
 
-function getMinistryChart(data, key = 'percentage', exporting = false) {
-    key = 'count';
-    data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken.percentage : 0) - (a.statuses.broken ? a.statuses.broken.percentage : 0));
+function getMinistryChart(data, opts = {}) {
+    const exporting = !!opts.exporting;
+    const unit = opts.unit || 'percentage';
+
+    const extractName = window.innerWidth < 768 ?
+        e => e.name.slice(0, 10).trim() + (e.name.length > 10 ? '…' : '') :
+        e => e.name;
+
+    if (unit === 'percentage') {
+        data = data.sort((a, b) => (b.statuses.broken ? b.statuses.broken[unit] : 0) - (a.statuses.broken ? a.statuses.broken[unit] : 0));
+    } else {
+        data = data.sort((a, b) => b.totalCount - a.totalCount);
+    }
 
     return {
         chart: {
@@ -45,7 +55,7 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
                             enabled: false,
                             color: '#777',
                             formatter: function() {
-                                return `${Math.round(this.percentage)}% (${this.y})`;
+                                return unit === 'percentage' ? `${Math.round(this.percentage)} % (${this.y})` : `${this.y} (${Math.round(this.percentage)} %)`;
                             }
                         }
                     }
@@ -55,24 +65,24 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
 
 
         xAxis: {
-            categories: data.map(e => e.name)
+            categories: data.map(extractName)
         },
+
         yAxis: {
             min: 0,
-            max: 100,
             labels: {
-                format: '{value} %'
+                format: unit === 'percentage' ? '{value} %' : '{value}'
             },
             title: {
-                text: 'Prosent'
+                text: unit === 'percentage' ? 'Prosent' : 'Antall løfter'
             },
             label: {
-                text: 'Prosent'
+                text: unit === 'percentage' ? 'Prosent' : 'Antall løfter'
             }
         },
         tooltip: {
             pointFormatter: function() {
-                return `<strong>${this.series.name}:</strong> ${Math.round(this.percentage)}% (${this.y}/${this.total})`;
+                return `<strong>${this.series.name}:</strong> ${Math.round(this.percentage)}% (${this._data.count}/${this._total})`;
             }
         },
 
@@ -81,7 +91,7 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
         },
         plotOptions: {
             series: {
-                stacking: 'percent'
+                stacking: unit === 'percentage' ? 'percent' : 'normal'
             },
         },
         series: [
@@ -90,7 +100,9 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
                 color: statusColors.kept,
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses.kept ? e.statuses.kept[key] : 0
+                    _total: e.totalCount,
+                    _data: e.statuses.kept,
+                    y: e.statuses.kept ? e.statuses.kept[unit] : 0
                 }))
             },
             {
@@ -98,7 +110,9 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
                 color: statusColors['partially-kept'],
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses['partially-kept'] ? e.statuses['partially-kept'][key] : 0
+                    _total: e.totalCount,
+                    _data: e.statuses['partially-kept'],
+                    y: e.statuses['partially-kept'] ? e.statuses['partially-kept'][unit] : 0
                 }))
             },
             {
@@ -106,7 +120,9 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
                 color: statusColors.uncheckable,
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses.uncheckable ? e.statuses.uncheckable[key] : 0
+                    _total: e.totalCount,
+                    _data: e.statuses.uncheckable,
+                    y: e.statuses.uncheckable ? e.statuses.uncheckable[unit] : 0
                 }))
             },
             {
@@ -114,7 +130,9 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
                 color: statusColors.broken,
                 data: data.map(e => ({
                     name: e.name,
-                    y: e.statuses.broken ? e.statuses.broken[key] : 0
+                    _total: e.totalCount,
+                    _data: e.statuses.broken,
+                    y: e.statuses.broken ? e.statuses.broken[unit] : 0
                 }))
             }
         ]
@@ -122,4 +140,4 @@ function getMinistryChart(data, key = 'percentage', exporting = false) {
 }
 
 export default props =>
-    props.data ? <ReactHighcharts config={getMinistryChart(props.data, 'percentage', props.exporting)} /> : null;
+    props.data ? <ReactHighcharts config={getMinistryChart(props.data, {exporting: props.exporting, unit: props.unit})} /> : null;

@@ -3,17 +3,25 @@ import React from 'react';
 import StatusTotals from './StatusTotals';
 import StatusByMinistry from './StatusByMinistry';
 import StatusTable from './StatusTable';
+import cn from 'classnames';
 
 export default class StatusCharts extends React.Component {
-    state = { detailsOpen: false };
+    state = {
+        detailsOpen: false,
+        unit: 'percentage'
+    };
 
     render() {
         const { stats, config } = this.props;
+        const { unit, detailsOpen} = this.state;
 
         if (!stats.totals) {
             return (
                 <div className="hdo-card">
-                    <div className="text-xs-center" style={{color: '#777', padding: '1rem'}}>
+                    <div
+                        className="text-xs-center"
+                        style={{ color: '#777', padding: '1rem' }}
+                    >
                         <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw" />
                     </div>
                 </div>
@@ -29,6 +37,7 @@ export default class StatusCharts extends React.Component {
                                 data={stats.totals}
                                 type={config.statusTotals}
                                 exporting={config.exporting}
+                                unit={unit}
                             />
                         </div>
                     </div>
@@ -38,6 +47,7 @@ export default class StatusCharts extends React.Component {
                             <StatusByMinistry
                                 data={stats.ministries}
                                 exporting={config.exporting}
+                                unit={unit}
                             />
                         </div>
                     </div>
@@ -45,14 +55,31 @@ export default class StatusCharts extends React.Component {
 
                 <div className="row">
                     <div className="col-md-6 col-md-offset-3 text-xs-center">
+                        <div className="toggle-unit" data-reactid=".0.1.0.1.0">
+                            <div
+                                className="btn-group btn-toggle"
+                            >
+                                <input
+                                    type="button"
+                                    value="Andel"
+                                    onClick={() => this.setState({unit: 'percentage'})}
+                                    className={cn('btn btn-sm', {'btn-primary': unit === 'percentage', 'btn-default': unit !== 'percentage'})}
+                                />
+                                <input
+                                    type="button"
+                                    value="Antall"
+                                    onClick={() => this.setState({unit: 'count'})}
+                                    className={cn('btn btn-sm', {'btn-primary': unit === 'count', 'btn-default': unit !== 'count'})}
+                                />
+                            </div>
+                        </div>
+
                         <div
                             className="toggle-details"
                             onClick={() => this.setState({ detailsOpen: true })}
-
                             data-ga-on="click"
                             data-ga-event-category="Se detaljer"
                             data-ga-event-action="click"
-
                             style={{
                                 display: this.state.detailsOpen
                                     ? 'none'
