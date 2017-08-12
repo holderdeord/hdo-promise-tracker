@@ -81,7 +81,7 @@ export default class StatusCharts extends React.Component {
                             data-ga-event-category="Se detaljer"
                             data-ga-event-action="click"
                             style={{
-                                display: this.state.detailsOpen
+                                display: detailsOpen
                                     ? 'none'
                                     : 'inline-block'
                             }}
