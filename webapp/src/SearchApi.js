@@ -1,9 +1,5 @@
 import fetch from 'isomorphic-fetch';
-
-const searchUrl =
-    process.env.NODE_ENV === 'development'
-        ? 'http://localhost:9200/hdo-promise-tracker-2017/_search'
-        : 'https://search.holderdeord.no/hdo-promise-tracker-2017/_search';
+import { elasticUrl } from './utils';
 
 export default class SearchApi {
     getStats() {
@@ -67,7 +63,7 @@ export default class SearchApi {
     }
 
     search(body) {
-        return fetch(searchUrl, {
+        return fetch(elasticUrl + '/_search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

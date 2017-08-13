@@ -42,3 +42,8 @@ export const statusTitles = {
 export function promiseLink(id) {
     return `/?q=${encodeURIComponent(`_id:${id}`)}`;
 }
+
+export const elasticUrl =
+    process.env.NODE_ENV === 'development'
+        ? 'http://localhost:9200/hdo-promise-tracker-2017/'
+        : 'https://search.holderdeord.no/hdo-promise-tracker-2017/';

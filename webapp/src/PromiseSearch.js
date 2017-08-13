@@ -15,13 +15,16 @@ import {
 
 import PromiseItem from './PromiseItem';
 
-import { translations, customHighlight, statusTitles } from './utils';
+import {
+    translations,
+    customHighlight,
+    statusTitles,
+    elasticUrl
+} from './utils';
 import 'searchkit/release/theme.css';
 import cn from 'classnames';
 
-const sk = new SearchkitManager(
-    'https://search.holderdeord.no/hdo-promise-tracker-2017/'
-);
+const sk = new SearchkitManager(elasticUrl);
 
 sk.translateFunction = key => translations[key];
 
@@ -30,7 +33,9 @@ let initial = true;
 sk.addResultsListener(results => {
     const isChange = !initial && results.hits.hasChanged;
     if (isChange || (initial && isPromiseIdQuery())) {
-        document.querySelector('.promise-list').scrollIntoView({behavior: 'smooth'});
+        document
+            .querySelector('.promise-list')
+            .scrollIntoView({ behavior: 'smooth' });
     }
 
     initial = false;
@@ -63,7 +68,9 @@ export default class PromiseList extends Component {
 
                             <div className="col-xs-4">
                                 <div
-                                    className={cn('filter-button', {active: this.state.filtersShown})}
+                                    className={cn('filter-button', {
+                                        active: this.state.filtersShown
+                                    })}
                                     onClick={this.toggleFilters.bind(this)}
                                 >
                                     <i className="fa fa-filter" />
