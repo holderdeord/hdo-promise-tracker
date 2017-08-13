@@ -13,7 +13,8 @@ export default class StatusCharts extends React.Component {
 
     render() {
         const { stats, config } = this.props;
-        const { unit, detailsOpen} = this.state;
+        const { unit, detailsOpen } = this.state;
+        const tableDataUri = detailsOpen ? '#' : this.createCsvUri();
 
         if (!stats.totals) {
             return (
@@ -56,20 +57,26 @@ export default class StatusCharts extends React.Component {
                 <div className="row">
                     <div className="col-md-6 col-md-offset-3 text-xs-center">
                         <div className="toggle-unit" data-reactid=".0.1.0.1.0">
-                            <div
-                                className="btn-group btn-toggle"
-                            >
+                            <div className="btn-group btn-toggle">
                                 <input
                                     type="button"
                                     value="Andel"
-                                    onClick={() => this.setState({unit: 'percentage'})}
-                                    className={cn('btn btn-sm', {'btn-primary': unit === 'percentage', 'btn-default': unit !== 'percentage'})}
+                                    onClick={() =>
+                                        this.setState({ unit: 'percentage' })}
+                                    className={cn('btn btn-sm', {
+                                        'btn-primary': unit === 'percentage',
+                                        'btn-default': unit !== 'percentage'
+                                    })}
                                 />
                                 <input
                                     type="button"
                                     value="Antall"
-                                    onClick={() => this.setState({unit: 'count'})}
-                                    className={cn('btn btn-sm', {'btn-primary': unit === 'count', 'btn-default': unit !== 'count'})}
+                                    onClick={() =>
+                                        this.setState({ unit: 'count' })}
+                                    className={cn('btn btn-sm', {
+                                        'btn-primary': unit === 'count',
+                                        'btn-default': unit !== 'count'
+                                    })}
                                 />
                             </div>
                         </div>
@@ -81,9 +88,7 @@ export default class StatusCharts extends React.Component {
                             data-ga-event-category="Se detaljer"
                             data-ga-event-action="click"
                             style={{
-                                display: detailsOpen
-                                    ? 'none'
-                                    : 'inline-block'
+                                display: detailsOpen ? 'none' : 'inline-block'
                             }}
                         >
                             <div>Se detaljer</div>
@@ -95,19 +100,99 @@ export default class StatusCharts extends React.Component {
                 </div>
 
                 <div
-                    className={`row details ${this.state.detailsOpen
+                    className={`row details ${detailsOpen
                         ? 'open'
                         : ''}`}
                 >
                     <div className="col-md-12">
                         <StatusTable stats={stats} />
+
                         <p>
                             På grunn av avrunding vil totaler kunne avvike fra
-                            summen av undergrupper.
+                            summen av undergrupper. Du kan laste ned{' '}
+                            <a
+                                href={this.createCsvUri()}
+                                download="holder-de-ords-loftesjekk-2017-oversikt.csv"
+                            >
+                                denne tabellen
+                            </a>{' '}
+                            eller{' '}
+                            <a href="https://files.holderdeord.no/data/csv/loftesjekk-2017.csv">
+                                hele datasettet
+                            </a>{' '}
+                            som CSV.
                         </p>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    createCsvUri() {
+        const { stats } = this.props;
+
+        if (!stats.totals) {
+            return '#';
+        }
+
+        const rows = [
+            [
+                'Departement',
+                'Holdt',
+                'Holdt %',
+                'Delvis holdt',
+                'Delvis holdt %',
+                'Brutt',
+                'Brutt %',
+                'Kan ikke etterprøves',
+                'Kan ikke etterprøves %',
+                'Totalt'
+            ]
+        ];
+
+        stats.ministries.forEach(m => {
+            rows.push([
+                m.name,
+                m.statuses.kept ? m.statuses.kept.count : 0,
+                m.statuses.kept ? m.statuses.kept.percentage : 0,
+                m.statuses['partially-kept']
+                    ? m.statuses['partially-kept'].count
+                    : 0,
+                m.statuses['partially-kept']
+                    ? m.statuses['partially-kept'].percentage
+                    : 0,
+                m.statuses.broken ? m.statuses.broken.count : 0,
+                m.statuses.broken ? m.statuses.broken.percentage : 0,
+                m.statuses.uncheckable ? m.statuses.uncheckable.count : 0,
+                m.statuses.uncheckable ? m.statuses.uncheckable.percentage : 0,
+                m.totalCount
+            ]);
+        });
+
+        if (stats.totals) {
+            rows.push([
+                'Totalt',
+                stats.totals.kept ? stats.totals.kept.count : 0,
+                stats.totals.kept ? stats.totals.kept.percentage : 0,
+                stats.totals['partially-kept']
+                    ? stats.totals['partially-kept'].count
+                    : 0,
+                stats.totals['partially-kept']
+                    ? stats.totals['partially-kept'].percentage
+                    : 0,
+                stats.totals.broken ? stats.totals.broken.count : 0,
+                stats.totals.broken ? stats.totals.broken.percentage : 0,
+                stats.totals.uncheckable ? stats.totals.uncheckable.count : 0,
+                stats.totals.uncheckable
+                    ? stats.totals.uncheckable.percentage
+                    : 0,
+                stats.totalCount
+            ]);
+        }
+
+        const uri =
+            `data:text/csv;charset=utf-8,` +
+            rows.map(e => e.join(',')).join('\n');
+        return encodeURI(uri);
     }
 }
