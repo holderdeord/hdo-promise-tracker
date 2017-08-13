@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { statusTitles } from './utils';
+import { statusTitles, promiseLink } from './utils';
 import cn from 'classnames';
 
 export default class PromiseItem extends Component {
@@ -24,7 +24,7 @@ export default class PromiseItem extends Component {
                                         `Ukjent`}:
                                 </h5>
 
-                                <a href={`/?q=${encodeURIComponent(`_id:${result._id}`)}`} className={cn('promise-permalink', {'hidden-sm-down': !expanded})}>
+                                <a href={promiseLink(result._id)} className={cn('promise-permalink', {'hidden-sm-down': !expanded})}>
                                     <i className="fa fa-link"></i>
                                 </a>
                             </div>

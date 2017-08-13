@@ -38,3 +38,7 @@ export const statusTitles = {
     broken: 'Brutt',
     uncheckable: 'Kan ikke etterprøves'
 };
+
+export function promiseLink(id) {
+    return `/?q=${encodeURIComponent(`_id:${id}`)}`;
+}

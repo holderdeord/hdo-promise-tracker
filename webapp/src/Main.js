@@ -5,6 +5,7 @@ import PromiseSearch from './PromiseSearch';
 import SearchApi from './SearchApi';
 import StatusCharts from './StatusCharts';
 import Method from './Method';
+import Corrections from './Corrections';
 
 export default class Main extends Component {
     api = new SearchApi();
@@ -30,6 +31,7 @@ export default class Main extends Component {
                 }} />
                 <PromiseSearch showIds={query.ids === 'true'} />
                 <Method />
+                <Corrections />
             </div>
         );
     }

@@ -1,7 +1,3 @@
 # hdo-promise-tracker
 
-### TODO:
-
-##### Slett duplikater
-
-12931
+Koden bak https://sjekk.holderdeord.no/

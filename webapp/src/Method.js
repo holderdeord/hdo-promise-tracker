@@ -3,7 +3,7 @@ import React from 'react';
 export default () =>
     <div className="row" id="metode">
         <div className="col-md-12">
-            <div className="hdo-card" style={{ padding: '1rem' }}>
+            <div className="hdo-card p-a-1">
                 <div className="row">
                     <div className="col-md-3 text-md-right">
                         <h5>Metode</h5>

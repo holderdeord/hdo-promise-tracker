@@ -29,7 +29,7 @@ export default class RelatedServices extends Component {
 
                 <div className="row no-gutters text-xs-center">
                     {services.map(service => (
-                        <div className="col-md-6 service" key={service.title}>
+                        <div className="col-lg-4 col-md-6 service" key={service.title}>
                             <a href={service.url}>
                                 <div className="img" style={service.style || {backgroundImage: `url(${service.img})`}} />
 

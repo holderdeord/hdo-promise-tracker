@@ -58,7 +58,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/webapp && git pull --ff-only && npm install && npm run build'"
+    "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/webapp && git pull --ff-only && npm install && npm run build'",
+    "fetch-corrections": "curl https://files.holderdeord.no/gdrive/1q8faLlWdoWxrAM4r9I-q4Tn7nPdl7myw0fJ3jod11WU.json > public/corrections.json"
   },
   "jest": {
     "collectCoverageFrom": [

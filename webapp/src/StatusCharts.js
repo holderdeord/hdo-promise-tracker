@@ -20,8 +20,8 @@ export default class StatusCharts extends React.Component {
             return (
                 <div className="hdo-card">
                     <div
-                        className="text-xs-center"
-                        style={{ color: '#777', padding: '1rem' }}
+                        className="text-xs-center p-a-1"
+                        style={{ color: '#777' }}
                     >
                         <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw" />
                     </div>
@@ -33,7 +33,7 @@ export default class StatusCharts extends React.Component {
             <div className="hdo-card">
                 <div className="row">
                     <div className="col-md-12 col-lg-5">
-                        <div style={{ padding: '1rem' }}>
+                        <div className="p-a-1">
                             <StatusTotals
                                 data={stats.totals}
                                 type={config.statusTotals}
@@ -44,7 +44,7 @@ export default class StatusCharts extends React.Component {
                     </div>
 
                     <div className="col-md-12 col-lg-7">
-                        <div style={{ padding: '1rem' }}>
+                        <div className="p-a-1">
                             <StatusByMinistry
                                 data={stats.ministries}
                                 exporting={config.exporting}

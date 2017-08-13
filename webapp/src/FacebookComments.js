@@ -3,7 +3,7 @@ import React from 'react';
 export default () =>
     <div className="row">
         <div className="col-md-8 col-md-offset-2">
-            <div id="comments" className="hdo-card" style={{padding: '2rem'}}>
+            <div id="comments" className="hdo-card p-a-2">
                 <h3>Kommentarer</h3>
 
                 <div
