@@ -8,7 +8,7 @@ export default () =>
 
                 <div
                     className="fb-comments"
-                    data-href={`https://sjekk.holderdeord.no/`}
+                    data-href={`https://sjekk.holderdeord.no`}
                     data-width="100%"
                     data-numposts="5"
                     data-colorscheme="light"
