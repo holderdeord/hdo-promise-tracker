@@ -16,7 +16,7 @@ export default class Corrections extends Component {
     render() {
         const { corrections } = this.state;
 
-        if (!corrections) {
+        if (!corrections || !corrections.length) {
             return null;
         }
 

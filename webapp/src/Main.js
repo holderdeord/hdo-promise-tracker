@@ -27,7 +27,7 @@ export default class Main extends Component {
                 <Intro count={stats.totalCount} />
                 <StatusCharts stats={stats} config={{
                     statusTotals: query.statusTotals || 'column',
-                    exporting: query.exporting !== 'false'
+                    exporting: query.exporting !== 'false' && window.innerWidth > 768
                 }} />
                 <PromiseSearch showIds={query.ids === 'true'} />
                 <Method />

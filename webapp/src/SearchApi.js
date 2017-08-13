@@ -1,7 +1,9 @@
 import fetch from 'isomorphic-fetch';
 
 const searchUrl =
-    'https://search.holderdeord.no/hdo-promise-tracker-2017/_search';
+    process.env.NODE_ENV === 'development'
+        ? 'http://localhost:9200/hdo-promise-tracker-2017/_search'
+        : 'https://search.holderdeord.no/hdo-promise-tracker-2017/_search';
 
 export default class SearchApi {
     getStats() {
@@ -37,21 +39,27 @@ export default class SearchApi {
                 totals[bucket.key] = {
                     count: bucket.doc_count,
                     percentage: bucket.doc_count * 100 / totalCount
-                }
+                };
             });
 
             res.aggregations.ministries.buckets.forEach(bucket => {
                 ministries.push({
                     name: bucket.key,
                     totalCount: bucket.doc_count,
-                    statuses: bucket.statuses.buckets.reduce((result, statusBucket) => ({
-                        ...result,
-                        [statusBucket.key]: {
-                            count: statusBucket.doc_count,
-                            percentage: statusBucket.doc_count * 100 / bucket.doc_count
-                        }
-                    }), {})
-                })
+                    statuses: bucket.statuses.buckets.reduce(
+                        (result, statusBucket) => ({
+                            ...result,
+                            [statusBucket.key]: {
+                                count: statusBucket.doc_count,
+                                percentage:
+                                    statusBucket.doc_count *
+                                    100 /
+                                    bucket.doc_count
+                            }
+                        }),
+                        {}
+                    )
+                });
             });
 
             return { ministries, totals, totalCount };
