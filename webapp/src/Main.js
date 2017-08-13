@@ -31,7 +31,6 @@ export default class Main extends Component {
                 }} />
                 <PromiseSearch showIds={query.ids === 'true'} />
                 <Method />
-                <Corrections />
             </div>
         );
     }

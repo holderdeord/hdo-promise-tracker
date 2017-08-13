@@ -1,4 +1,5 @@
 import React from 'react';
+import Corrections from './Corrections';
 
 export default () =>
     <div className="row" id="metode">
@@ -171,6 +172,16 @@ export default () =>
                             <li>Elin Segerblad</li>
                             <li>Herman Thorsen</li>
                         </ul>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-3 text-md-right">
+                        <h5>Rettelser</h5>
+                    </div>
+
+                    <div className="col-md-8 col-lg-6">
+                        <Corrections />
                     </div>
                 </div>
             </div>

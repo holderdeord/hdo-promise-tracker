@@ -7,7 +7,9 @@ export default class Corrections extends Component {
 
     componentDidMount() {
         fetch(
-            'https://files.holderdeord.no/gdrive/1q8faLlWdoWxrAM4r9I-q4Tn7nPdl7myw0fJ3jod11WU.json'
+            `https://files.holderdeord.no/gdrive/1q8faLlWdoWxrAM4r9I-q4Tn7nPdl7myw0fJ3jod11WU.json?origin=${encodeURIComponent(
+                window.location.host
+            )}`
         )
             .then(res => (res.ok ? res.json() : []))
             .then(doc => this.setState({ corrections: doc.data.rettelser }));
@@ -21,49 +23,20 @@ export default class Corrections extends Component {
         }
 
         return (
-            <div className="row" id="rettelser">
-                <div className="col-md-12">
-                    <div className="hdo-card p-a-1">
-                        <div className="row">
-                            <div className="col-md-3 text-md-right">
-                                <h4>Rettelser</h4>
-                            </div>
-                            <div className="col-md-8">
-                                <table className="table table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Når</th>
-                                            <th style={{maxWidth: '200px'}}>Hva er endret</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {corrections
-                                            .filter(
-                                                c =>
-                                                    c.dato &&
-                                                    c.tid &&
-                                                    c['hva er endret']
-                                            )
-                                            .map((c, i) =>
-                                                <tr key={i}>
-                                                    <td className="nowrap">
-                                                        {c.dato} {c.tid}
-                                                    </td>
-                                                    <td>
-                                                        {c['hva er endret']}
-                                                    </td>
-                                                    <td>{c.id ? <a href={promiseLink(c.id)}><i className="fa fa-link" /></a> : null}</td>
-                                                </tr>
-                                            )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ul className="list-unstyled" style={{fontSize: '.9rem'}}>
+                {corrections
+                    .filter(c => c.dato && c.tid && c['hva er endret'])
+                    .map((c, i) =>
+                        <li key={i}>
+                            <strong>
+                                {c.dato} {c.tid}
+                            </strong>: {c['hva er endret']}{' '}
+                            {c.id
+                                ? <a href={promiseLink(c.id)}>Se løftet</a>
+                                : null}
+                        </li>
+                    )}
+            </ul>
         );
     }
 }
