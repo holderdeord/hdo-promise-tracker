@@ -6,7 +6,7 @@
   "scripts": {
     "reindex": "DEBUG=hdo-promise-tracker:* node index.js",
     "csv-dump": "es2csv -q '*' -i hdo-promise-tracker-2017 -o /webapps/files/data/csv/loftesjekk-2017.csv",
-    "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/indexer && git pull --ff-only && npm install && npm run reindex'"
+    "deploy": "[[ -z $(git status --porcelain) ]] && [[ -z $(git cherry -v) ]] && ssh hdo@hdo02.holderdeord.no 'cd /webapps/hdo-promise-tracker/indexer && git pull --ff-only && npm install && npm run reindex && npm run csv-dump'"
   },
   "keywords": [],
   "author": "",
