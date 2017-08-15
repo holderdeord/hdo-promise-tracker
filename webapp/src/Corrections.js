@@ -23,17 +23,24 @@ export default class Corrections extends Component {
         }
 
         return (
-            <ul className="list-unstyled" style={{fontSize: '.9rem'}}>
+            <ul className="list-unstyled" style={{ fontSize: '.9rem' }}>
                 {corrections
                     .filter(c => c.dato && c.tid && c['hva er endret'])
                     .map((c, i) =>
                         <li key={i}>
-                            <strong>
-                                {c.dato} {c.tid}
-                            </strong>: {c['hva er endret']}{' '}
-                            {c.id
-                                ? <a href={promiseLink(c.id)}>Se løftet</a>
-                                : null}
+                            <div>
+                                <strong>
+                                    {c.dato} {c.tid}
+                                </strong>:{' '}
+                            </div>
+                            <div className="p-l-2">
+                                {c['hva er endret']}
+                                {' '}
+                                {c.id
+                                    ? <span><a href={promiseLink(c.id)}>Se løftet</a>.</span>
+                                    : null}
+                            </div>
+
                         </li>
                     )}
             </ul>
