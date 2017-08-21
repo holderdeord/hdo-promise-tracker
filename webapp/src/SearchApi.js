@@ -1,24 +1,52 @@
-import fetch from 'isomorphic-fetch';
-import { elasticUrl } from './utils';
+import fetch from "isomorphic-fetch";
+import { elasticUrl } from "./utils";
 
 export default class SearchApi {
+    getBrokenReasons() {
+        return this.search({
+            query: {
+                query_string: {
+                    query: "status:broken"
+                }
+            },
+            size: 0,
+            aggs: {
+                brokenReason: {
+                    terms: {
+                        field: "brokenReason"
+                    }
+                }
+            }
+        }).then(res => {
+            const result = {};
+            const total = res.aggregations.brokenReason.buckets.reduce((a, e) => a + e.doc_count, 0);
+
+            res.aggregations.brokenReason.buckets.map(bucket => result[bucket.key] = {
+                count: bucket.doc_count,
+                percentage: (bucket.doc_count * 100) / total
+            });
+
+            return result;
+        });
+    }
+
     getStats() {
         return this.search({
             aggs: {
                 allStatuses: {
                     terms: {
-                        field: 'status'
+                        field: "status"
                     }
                 },
                 ministries: {
                     terms: {
-                        field: 'ministry',
+                        field: "ministry",
                         size: 50
                     },
                     aggs: {
                         statuses: {
                             terms: {
-                                field: 'status'
+                                field: "status"
                             }
                         }
                     }
@@ -63,11 +91,11 @@ export default class SearchApi {
     }
 
     search(body) {
-        return fetch(elasticUrl + '/_search', {
-            method: 'POST',
+        return fetch(elasticUrl + "/_search", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
+                "Content-Type": "application/json",
+                Accept: "application/json"
             },
             body: JSON.stringify(body)
         }).then(

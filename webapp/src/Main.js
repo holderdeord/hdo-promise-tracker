@@ -5,7 +5,7 @@ import PromiseSearch from './PromiseSearch';
 import SearchApi from './SearchApi';
 import StatusCharts from './StatusCharts';
 import Method from './Method';
-import Corrections from './Corrections';
+import BrokenReason from './BrokenReason';
 
 export default class Main extends Component {
     api = new SearchApi();
@@ -22,12 +22,16 @@ export default class Main extends Component {
         const { stats } = this.state;
         const { query } = this.props;
 
+        if (query.brokenReason === 'true') {
+            return <BrokenReason api={this.api} />
+        }
+
         return (
             <div>
                 <Intro count={stats.totalCount} />
                 <StatusCharts stats={stats} config={{
                     statusTotals: query.statusTotals || 'column',
-                    exporting: query.exporting !== 'false' && window.innerWidth > 768
+                    exporting: query.exporting === 'true' && window.innerWidth > 768
                 }} />
                 <PromiseSearch showIds={query.ids === 'true'} />
                 <Method />

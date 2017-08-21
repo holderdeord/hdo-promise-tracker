@@ -44,8 +44,9 @@ function brokenReasonFor(raw) {
     const noMajority = (raw['Ikke flertall på Stortinget'] || '').toLowerCase() === 'ja';
     const noPriority = (raw['Ikke prioritert'] || '').toLowerCase() === 'ja';
     const changedOpinion = (raw['Snudd'] || '').toLowerCase() === 'ja';
+    const previousGov = (raw['Innført under forrige regjering'] || '').toLowerCase() === 'ja';
 
-    const reasons = [noMajority, noPriority, changedOpinion].filter(e => !!e);
+    const reasons = [noMajority, noPriority, changedOpinion, previousGov].filter(e => !!e);
 
     if (reasons.length !== 1) {
         throw new Error(`multiple or no broken reasons`);
@@ -57,6 +58,8 @@ function brokenReasonFor(raw) {
         return 'no-priority';
     } else if (changedOpinion) {
         return 'changed-opinion';
+    } else if (previousGov) {
+        return 'previous-government';
     } else {
         return 'unknown';
     }
@@ -179,6 +182,10 @@ function createIndex() {
                                         title: { type: 'string' },
                                         url: { type: 'string', index: 'not_analyzed' }
                                     }
+                                },
+                                brokenReason: {
+                                    type: 'string',
+                                    index: 'not_analyzed'
                                 }
                             }
                         }
