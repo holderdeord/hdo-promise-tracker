@@ -40,6 +40,28 @@ function indexPromise(doc) {
     });
 }
 
+function brokenReasonFor(raw) {
+    const noMajority = (raw['Ikke flertall på Stortinget'] || '').toLowerCase() === 'ja';
+    const noPriority = (raw['Ikke prioritert'] || '').toLowerCase() === 'ja';
+    const changedOpinion = (raw['Snudd'] || '').toLowerCase() === 'ja';
+
+    const reasons = [noMajority, noPriority, changedOpinion].filter(e => !!e);
+
+    if (reasons.length !== 1) {
+        throw new Error(`multiple or no broken reasons`);
+    }
+
+    if (noMajority) {
+        return 'no-majority';
+    } else if (noPriority) {
+        return 'no-priority';
+    } else if (changedOpinion) {
+        return 'changed-opinion';
+    } else {
+        return 'unknown';
+    }
+}
+
 const ids = new Set();
 
 function convertRawToDoc(raw) {
@@ -49,6 +71,8 @@ function convertRawToDoc(raw) {
         const uncheckable =
             (raw['Kan ikke etterprøves'] || '').toLowerCase() === 'ja';
 
+        const status = uncheckable ? 'uncheckable' : statusFor(raw['Holdt?']);
+
         const doc = {
             id: raw.ID,
             text: raw.LØFTE,
@@ -57,7 +81,7 @@ function convertRawToDoc(raw) {
                 .map(e => e.trim())
                 .filter(e => e.length),
             ministry: (raw['Ansvarlig dep.'] || 'Ukjent').trim(),
-            status: uncheckable ? 'uncheckable' : statusFor(raw['Holdt?']),
+            status: status,
             completed: raw['Ferdigsjekka?'].toLowerCase() === 'ja',
             explanation: raw['Kommentar/Forklaring'].trim(),
             checker: (raw['Hvem sjekker?'] || 'Ukjent').trim(),
@@ -65,7 +89,8 @@ function convertRawToDoc(raw) {
             propositions: (raw['Relevante forslag'] || '')
                 .split(/ og |\s/)
                 .map(e => e.trim())
-                .filter(e => e.length)
+                .filter(e => e.length),
+            brokenReason: status === 'broken' ? brokenReasonFor(raw) : null
         };
 
         if (doc.id === null) {
