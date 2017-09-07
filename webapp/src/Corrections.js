@@ -12,11 +12,17 @@ export default class Corrections extends Component {
             )}`
         )
             .then(res => (res.ok ? res.json() : []))
-            .then(doc => this.setState({ corrections: doc.data.rettelser }));
+            .then(doc =>
+                this.setState({
+                    corrections: doc.data.rettelser.filter(
+                        c => c['aktiv'] && c['aktiv'].toLowerCase() === 'ja'
+                    )
+                })
+            );
     }
 
     render() {
-        const { corrections } = this.state;
+        let { corrections } = this.state;
 
         if (!corrections || !corrections.length) {
             return null;
@@ -26,7 +32,7 @@ export default class Corrections extends Component {
             <ul className="list-unstyled" style={{ fontSize: '.9rem' }}>
                 {corrections
                     .filter(c => c.dato && c.tid && c['hva er endret'])
-                    .map((c, i) =>
+                    .map((c, i) => (
                         <li key={i}>
                             <div>
                                 <strong>
@@ -34,15 +40,17 @@ export default class Corrections extends Component {
                                 </strong>:{' '}
                             </div>
                             <div className="p-l-2">
-                                {c['hva er endret']}
-                                {' '}
-                                {c.id
-                                    ? <span><a href={promiseLink(c.id)}>Se løftet</a>.</span>
-                                    : null}
+                                {c['hva er endret']}{' '}
+                                {c.id ? (
+                                    <span>
+                                        <a href={promiseLink(c.id)}>
+                                            Se løftet
+                                        </a>.
+                                    </span>
+                                ) : null}
                             </div>
-
                         </li>
-                    )}
+                    ))}
             </ul>
         );
     }
