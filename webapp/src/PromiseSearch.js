@@ -32,10 +32,9 @@ let initial = true;
 
 sk.addResultsListener(results => {
     const isChange = !initial && results.hits.hasChanged;
+
     if (isChange || (initial && isPromiseIdQuery())) {
-        document
-            .querySelector('.promise-list')
-            .scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.promise-list').scrollIntoView();
     }
 
     initial = false;
@@ -98,34 +97,39 @@ export default class PromiseList extends Component {
                         <div
                             className="col-md-3 col-transition"
                             style={
-                                this.state.filtersShown
-                                    ? {}
-                                    : {
-                                          width: 0,
-                                          height: 0,
-                                          opacity: 0,
-                                          padding: 0
-                                      }
+                                this.state.filtersShown ? (
+                                    {}
+                                ) : (
+                                    {
+                                        width: 0,
+                                        height: 0,
+                                        opacity: 0,
+                                        padding: 0
+                                    }
+                                )
                             }
                         >
                             <div
                                 className="filter-container"
                                 style={
-                                    this.state.filtersShown
-                                        ? { display: 'block' }
-                                        : {}
+                                    this.state.filtersShown ? (
+                                        { display: 'block' }
+                                    ) : (
+                                        {}
+                                    )
                                 }
                             >
                                 <div className="filter">
                                     <RefinementListFilter
                                         listComponent={CheckboxItemList}
-                                        itemComponent={props =>
+                                        itemComponent={props => (
                                             <ItemComponent
                                                 {...props}
                                                 label={
                                                     statusTitles[props.label]
                                                 }
-                                            />}
+                                            />
+                                        )}
                                         id="status"
                                         title="Løftestatus"
                                         field="status"
@@ -172,11 +176,12 @@ export default class PromiseList extends Component {
                                 hitsPerPage={30}
                                 highlightFields={['text']}
                                 customHighlight={customHighlight}
-                                itemComponent={props =>
+                                itemComponent={props => (
                                     <PromiseItem
                                         {...props}
                                         showIds={this.props.showIds}
-                                    />}
+                                    />
+                                )}
                                 scrollTo=".promise-list"
                             />
 
