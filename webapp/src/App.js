@@ -16,7 +16,8 @@ class App extends Component {
 
         <div className="m-t-1">
           <div className="alert alert-info">
-            <strong>Holder de ord</strong> legges ned i løpet av 2020.
+            <strong>Holder de ord</strong> legges ned i løpet av 2020. Denne
+            tjenesten vil ikke bli oppdatert.
           </div>
         </div>
 
